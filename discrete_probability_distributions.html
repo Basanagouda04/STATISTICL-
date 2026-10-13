@@ -1,0 +1,2590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discrete Probability Distributions — Combined</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, sans-serif; background: #f1f5f9; color: #0f172a; }
+  header { position: sticky; top: 0; z-index: 100; background: #312e81; color: white; padding: 14px 18px; box-shadow: 0 2px 8px #0002; }
+  h1 { font-size: 18px; margin: 0 0 12px; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tab { cursor: pointer; border: 1px solid #c7d2fe; border-radius: 8px; background: #4338ca; color: white; padding: 9px 13px; font-size: 14px; }
+  .tab.active { background: white; color: #312e81; font-weight: bold; }
+  main { height: calc(100vh - 105px); }
+  .app-frame { display: none; border: 0; width: 100%; height: 100%; background: white; }
+  .app-frame.active { display: block; }
+  @media (max-width: 600px) { header { position: static; } main { height: calc(100vh - 150px); } .tab { padding: 8px 10px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Discrete Probability Distributions — Combined Files</h1>
+  <nav><button class="tab" data-index="0" onclick="showVersion(0)">Version 1</button>
+<button class="tab" data-index="1" onclick="showVersion(1)">Version 2</button>
+<button class="tab" data-index="2" onclick="showVersion(2)">Version 3</button>
+<button class="tab" data-index="3" onclick="showVersion(3)">Version 4</button>
+<button class="tab" data-index="4" onclick="showVersion(4)">Version 5</button>
+<button class="tab" data-index="5" onclick="showVersion(5)">Version 6</button></nav>
+</header>
+<main>
+<iframe class="app-frame" id="frame-0" title="Version 1" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; class=&quot;h-full&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Discrete Probability Distributions&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/chart.js&quot;&gt;&lt;/script&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;style&gt;
+        body { font-family: &#x27;Inter&#x27;, sans-serif; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class=&quot;bg-slate-50 text-slate-800 h-full flex flex-col&quot;&gt;
+
+    &lt;header class=&quot;bg-indigo-900 text-white shadow-md sticky top-0 z-50&quot;&gt;
+        &lt;div class=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;&gt;
+            &lt;div class=&quot;flex justify-between h-16 items-center&quot;&gt;
+                &lt;div class=&quot;flex items-center space-x-3 cursor-pointer&quot; onclick=&quot;switchTab(&#x27;home&#x27;)&quot;&gt;
+                    &lt;div class=&quot;bg-indigo-700 p-2 rounded-lg text-indigo-200 font-bold text-lg&quot;&gt;
+                        &lt;svg class=&quot;w-6 h-6 inline&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z&quot;/&gt;&lt;/svg&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;span class=&quot;font-bold text-lg tracking-tight&quot;&gt;AIML Lab&lt;/span&gt;
+                        &lt;span class=&quot;block text-xs text-indigo-300&quot;&gt;Discrete Probability Distributions&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;nav class=&quot;flex space-x-1 sm:space-x-4&quot;&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; id=&quot;nav-home&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;&gt;Home&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; id=&quot;nav-binomial&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Binomial&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; id=&quot;nav-poisson&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Poisson&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; id=&quot;nav-geometric&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Geometric&lt;/button&gt;
+                &lt;/nav&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;main class=&quot;flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8&quot;&gt;
+
+        &lt;!-- HOME VIEW --&gt;
+        &lt;div id=&quot;view-home&quot; class=&quot;space-y-8&quot;&gt;
+            &lt;div class=&quot;bg-gradient-to-r from-indigo-900 to-blue-800 rounded-2xl p-8 text-white shadow-xl&quot;&gt;
+                &lt;h1 class=&quot;text-3xl sm:text-4xl font-extrabold tracking-tight mb-4&quot;&gt;Welcome to the AIML Probability Laboratory&lt;/h1&gt;
+                &lt;p class=&quot;text-indigo-100 max-w-3xl text-base sm:text-lg leading-relaxed mb-6&quot;&gt;
+                    Probability distributions form the mathematical backbone of Artificial Intelligence and Machine Learning. From binary classification metrics to generative modeling and reinforcement learning, understanding discrete random variables is crucial.
+                &lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold shadow hover:bg-indigo-50 transition transform hover:-translate-y-0.5&quot;&gt;
+                    Start Binomial Lab &amp;rarr;
+                &lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;grid grid-cols-1 md:grid-cols-3 gap-6&quot;&gt;
+                &lt;!-- Binomial Card --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-indigo-600 group-hover:text-white transition&quot;&gt;B&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;1. Binomial Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the number of successes in $n$ independent binary trials. Essential for evaluating binary classifiers and accuracy metrics.&lt;/p&gt;
+                    &lt;span class=&quot;text-indigo-600 text-sm font-semibold group-hover:underline&quot;&gt;Explore Module &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Poisson Card --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-blue-600 group-hover:text-white transition&quot;&gt;P&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;2. Poisson Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the number of events occurring in a fixed interval of time or space. Useful for queueing systems and anomaly detection.&lt;/p&gt;
+                    &lt;span class=&quot;text-blue-600 text-sm font-semibold group-hover:underline&quot;&gt;Coming Soon &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Geometric Card --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-emerald-600 group-hover:text-white transition&quot;&gt;G&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;3. Geometric Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the number of trials needed to get the first success. Applied in multi-step trial modeling and search algorithms.&lt;/p&gt;
+                    &lt;span class=&quot;text-emerald-600 text-sm font-semibold group-hover:underline&quot;&gt;Coming Soon &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- BINOMIAL VIEW --&gt;
+        &lt;div id=&quot;view-binomial&quot; class=&quot;hidden space-y-6&quot;&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4&quot;&gt;
+                &lt;div&gt;
+                    &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Binomial Distribution Module&lt;/h1&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Analyze discrete probability mass and cumulative functions for binary outcomes.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;flex items-center space-x-2 bg-indigo-50 text-indigo-700 px-4 py-2 rounded-lg text-sm font-medium&quot;&gt;
+                    &lt;span&gt;Formula: $P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-3 gap-6&quot;&gt;
+                &lt;!-- Controls Card --&gt;
+                &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-6&quot;&gt;
+                    &lt;h2 class=&quot;text-lg font-semibold text-slate-900 border-b pb-3&quot;&gt;Distribution Parameters&lt;/h2&gt;
+                    
+                    &lt;!-- Trials n --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;div class=&quot;flex justify-between items-center&quot;&gt;
+                            &lt;label for=&quot;input-n&quot; class=&quot;text-sm font-medium text-slate-700&quot;&gt;Number of Trials ($n$)&lt;/label&gt;
+                            &lt;span id=&quot;val-n&quot; class=&quot;bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded&quot;&gt;20&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;input id=&quot;range-n&quot; type=&quot;range&quot; min=&quot;1&quot; max=&quot;50&quot; value=&quot;20&quot; class=&quot;w-full accent-indigo-600 cursor-pointer&quot; oninput=&quot;updateParam(&#x27;n&#x27;, this.value)&quot;&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Probability p --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;div class=&quot;flex justify-between items-center&quot;&gt;
+                            &lt;label for=&quot;input-p&quot; class=&quot;text-sm font-medium text-slate-700&quot;&gt;Probability of Success ($p$)&lt;/label&gt;
+                            &lt;span id=&quot;val-p&quot; class=&quot;bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded&quot;&gt;0.50&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;input id=&quot;range-p&quot; type=&quot;range&quot; min=&quot;0.01&quot; max=&quot;0.99&quot; step=&quot;0.01&quot; value=&quot;0.50&quot; class=&quot;w-full accent-indigo-600 cursor-pointer&quot; oninput=&quot;updateParam(&#x27;p&#x27;, this.value)&quot;&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Target successes k --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;div class=&quot;flex justify-between items-center&quot;&gt;
+                            &lt;label for=&quot;input-k&quot; class=&quot;text-sm font-medium text-slate-700&quot;&gt;Target Successes ($k$)&lt;/label&gt;
+                            &lt;span id=&quot;val-k&quot; class=&quot;bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded&quot;&gt;10&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;input id=&quot;range-k&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;20&quot; value=&quot;10&quot; class=&quot;w-full accent-indigo-600 cursor-pointer&quot; oninput=&quot;updateParam(&#x27;k&#x27;, this.value)&quot;&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Calculation Mode Selection --&gt;
+                    &lt;div class=&quot;space-y-2 pt-2 border-t&quot;&gt;
+                        &lt;label class=&quot;text-sm font-medium text-slate-700&quot;&gt;Probability Query Mode&lt;/label&gt;
+                        &lt;div class=&quot;grid grid-cols-3 gap-2&quot;&gt;
+                            &lt;button onclick=&quot;setQueryMode(&#x27;exact&#x27;)&quot; id=&quot;mode-exact&quot; class=&quot;px-3 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition&quot;&gt;P(X = k)&lt;/button&gt;
+                            &lt;button onclick=&quot;setQueryMode(&#x27;lte&#x27;)&quot; id=&quot;mode-lte&quot; class=&quot;px-3 py-2 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition&quot;&gt;P(X &amp;le; k)&lt;/button&gt;
+                            &lt;button onclick=&quot;setQueryMode(&#x27;gte&#x27;)&quot; id=&quot;mode-gte&quot; class=&quot;px-3 py-2 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition&quot;&gt;P(X &amp;ge; k)&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Educational Note --&gt;
+                    &lt;div class=&quot;bg-slate-50 p-4 rounded-lg border border-slate-200 text-xs text-slate-600 space-y-2&quot;&gt;
+                        &lt;p class=&quot;font-semibold text-slate-700&quot;&gt;AIML Lab Context:&lt;/p&gt;
+                        &lt;p&gt;If you have a binary classifier evaluated on $n$ test samples with true positive/success rate $p$, the Binomial distribution tells you the exact likelihood of observing exactly $k$ correct predictions.&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Visualizations &amp; Statistics --&gt;
+                &lt;div class=&quot;lg:col-span-2 space-y-6&quot;&gt;
+                    &lt;!-- Statistics Grid --&gt;
+                    &lt;div class=&quot;grid grid-cols-2 sm:grid-cols-4 gap-4&quot;&gt;
+                        &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                            &lt;span class=&quot;text-xs font-medium text-slate-500 uppercase tracking-wider&quot;&gt;Mean ($\mu$)&lt;/span&gt;
+                            &lt;p id=&quot;stat-mean&quot; class=&quot;text-xl font-bold text-indigo-900 mt-1&quot;&gt;10.00&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                            &lt;span class=&quot;text-xs font-medium text-slate-500 uppercase tracking-wider&quot;&gt;Variance ($\sigma^2$)&lt;/span&gt;
+                            &lt;p id=&quot;stat-variance&quot; class=&quot;text-xl font-bold text-indigo-900 mt-1&quot;&gt;5.00&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                            &lt;span class=&quot;text-xs font-medium text-slate-500 uppercase tracking-wider&quot;&gt;Std Dev ($\sigma$)&lt;/span&gt;
+                            &lt;p id=&quot;stat-stddev&quot; class=&quot;text-xl font-bold text-indigo-900 mt-1&quot;&gt;2.24&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                            &lt;span id=&quot;label-query-title&quot; class=&quot;text-xs font-medium text-indigo-600 uppercase tracking-wider&quot;&gt;P(X = 10)&lt;/span&gt;
+                            &lt;p id=&quot;stat-query-val&quot; class=&quot;text-xl font-bold text-indigo-700 mt-1&quot;&gt;0.1762&lt;/p&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Chart Card --&gt;
+                    &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                        &lt;div class=&quot;flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2&quot;&gt;
+                            &lt;div class=&quot;flex space-x-2&quot;&gt;
+                                &lt;button onclick=&quot;setChartType(&#x27;pmf&#x27;)&quot; id=&quot;btn-pmf&quot; class=&quot;px-3 py-1.5 text-xs font-semibold rounded-md bg-indigo-600 text-white transition&quot;&gt;PMF (Probability Mass)&lt;/button&gt;
+                                &lt;button onclick=&quot;setChartType(&#x27;cdf&#x27;)&quot; id=&quot;btn-cdf&quot; class=&quot;px-3 py-1.5 text-xs font-semibold rounded-md bg-slate-100 text-slate-700 hover:bg-slate-200 transition&quot;&gt;CDF (Cumulative)&lt;/button&gt;
+                            &lt;/div&gt;
+                            &lt;span class=&quot;text-xs text-slate-500&quot;&gt;Highlighted bar represents target $k$&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;relative h-72 w-full&quot;&gt;
+                            &lt;canvas id=&quot;binomialChart&quot;&gt;&lt;/canvas&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- POISSON VIEW (Placeholder) --&gt;
+        &lt;div id=&quot;view-poisson&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;P&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Poisson Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Coming soon in the next lab session! This module will cover rate parameters ($\lambda$), event arrivals, and Poisson approximations.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Return to Home&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- GEOMETRIC VIEW (Placeholder) --&gt;
+        &lt;div id=&quot;view-geometric&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;G&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Geometric Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Coming soon in the next lab session! This module will explore wait times until first success and memoryless properties.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Return to Home&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/main&gt;
+
+    &lt;script&gt;
+        // State management
+        let state = {
+            n: 20,
+            p: 0.50,
+            k: 10,
+            queryMode: &#x27;exact&#x27;, // &#x27;exact&#x27;, &#x27;lte&#x27;, &#x27;gte&#x27;
+            chartType: &#x27;pmf&#x27;    // &#x27;pmf&#x27;, &#x27;cdf&#x27;
+        };
+
+        let chartInstance = null;
+
+        // Tab Navigation Controller
+        function switchTab(tabId) {
+            [&#x27;home&#x27;, &#x27;binomial&#x27;, &#x27;poisson&#x27;, &#x27;geometric&#x27;].forEach(id =&gt; {
+                const view = document.getElementById(`view-${id}`);
+                const nav = document.getElementById(`nav-${id}`);
+                if (id === tabId) {
+                    view.classList.remove(&#x27;hidden&#x27;);
+                    if (nav) {
+                        nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;;
+                    }
+                } else {
+                    view.classList.add(&#x27;hidden&#x27;);
+                    if (nav) {
+                        nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;;
+                    }
+                }
+            });
+            window.scrollTo({ top: 0, behavior: &#x27;smooth&#x27; });
+            if (tabId === &#x27;binomial&#x27; &amp;&amp; !chartInstance) {
+                initBinomialChart();
+            } else if (tabId === &#x27;binomial&#x27; &amp;&amp; chartInstance) {
+                updateBinomialCalculations();
+            }
+        }
+
+        // Combinatorics helper
+        function combinations(n, k) {
+            if (k &lt; 0 || k &gt; n) return 0;
+            if (k === 0 || k === n) return 1;
+            if (k &gt; n / k) k = n - k;
+            let c = 1;
+            for (let i = 1; i &lt;= k; i++) {
+                c = c * (n - (i - 1)) / i;
+            }
+            return c;
+        }
+
+        // Binomial PMF
+        function binomialPMF(n, p, k) {
+            return combinations(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+        }
+
+        // Binomial CDF
+        function binomialCDF(n, p, k) {
+            let sum = 0;
+            for (let i = 0; i &lt;= Math.min(k, n); i++) {
+                sum += binomialPMF(n, p, i);
+            }
+            return sum;
+        }
+
+        // Parameter update handler
+        function updateParam(param, val) {
+            if (param === &#x27;n&#x27;) {
+                state.n = parseInt(val);
+                document.getElementById(&#x27;val-n&#x27;).innerText = state.n;
+                // Adjust k max bounds
+                const kInput = document.getElementById(&#x27;range-k&#x27;);
+                kInput.max = state.n;
+                if (state.k &gt; state.n) {
+                    state.k = state.n;
+                    kInput.value = state.k;
+                    document.getElementById(&#x27;val-k&#x27;).innerText = state.k;
+                }
+            } else if (param === &#x27;p&#x27;) {
+                state.p = parseFloat(val);
+                document.getElementById(&#x27;val-p&#x27;).innerText = state.p.toFixed(2);
+            } else if (param === &#x27;k&#x27;) {
+                state.k = parseInt(val);
+                document.getElementById(&#x27;val-k&#x27;).innerText = state.k;
+            }
+            updateBinomialCalculations();
+        }
+
+        // Query mode switcher
+        function setQueryMode(mode) {
+            state.queryMode = mode;
+            [&#x27;exact&#x27;, &#x27;lte&#x27;, &#x27;gte&#x27;].forEach(m =&gt; {
+                const btn = document.getElementById(`mode-${m}`);
+                if (m === mode) {
+                    btn.className = &quot;px-3 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition&quot;;
+                } else {
+                    btn.className = &quot;px-3 py-2 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition&quot;;
+                }
+            });
+            updateBinomialCalculations();
+        }
+
+        // Chart type switcher
+        function setChartType(type) {
+            state.chartType = type;
+            [&#x27;pmf&#x27;, &#x27;cdf&#x27;].forEach(t =&gt; {
+                const btn = document.getElementById(`btn-${t}`);
+                if (t === type) {
+                    btn.className = &quot;px-3 py-1.5 text-xs font-semibold rounded-md bg-indigo-600 text-white transition&quot;;
+                } else {
+                    btn.className = &quot;px-3 py-1.5 text-xs font-semibold rounded-md bg-slate-100 text-slate-700 hover:bg-slate-200 transition&quot;;
+                }
+            });
+            updateBinomialCalculations();
+        }
+
+        // Core calculation update &amp; chart refresh
+        function updateBinomialCalculations() {
+            const n = state.n;
+            const p = state.p;
+            const k = state.k;
+
+            // Compute statistics
+            const mean = n * p;
+            const variance = n * p * (1 - p);
+            const stdDev = Math.sqrt(variance);
+
+            document.getElementById(&#x27;stat-mean&#x27;).innerText = mean.toFixed(2);
+            document.getElementById(&#x27;stat-variance&#x27;).innerText = variance.toFixed(2);
+            document.getElementById(&#x27;stat-stddev&#x27;).innerText = stdDev.toFixed(2);
+
+            // Compute target query probability
+            let queryVal = 0;
+            let queryTitleStr = &quot;&quot;;
+            if (state.queryMode === &#x27;exact&#x27;) {
+                queryVal = binomialPMF(n, p, k);
+                queryTitleStr = `P(X = ${k})`;
+            } else if (state.queryMode === &#x27;lte&#x27;) {
+                queryVal = binomialCDF(n, p, k);
+                queryTitleStr = `P(X ≤ ${k})`;
+            } else if (state.queryMode === &#x27;gte&#x27;) {
+                let cdfVal = k &gt; 0 ? binomialCDF(n, p, k - 1) : 0;
+                queryVal = 1 - cdfVal;
+                queryTitleStr = `P(X ≥ ${k})`;
+            }
+
+            document.getElementById(&#x27;label-query-title&#x27;).innerText = queryTitleStr;
+            document.getElementById(&#x27;stat-query-val&#x27;).innerText = queryVal.toFixed(4);
+
+            // Prepare chart data
+            const labels = [];
+            const dataValues = [];
+            const backgroundColors = [];
+
+            for (let i = 0; i &lt;= n; i++) {
+                labels.push(i);
+                let val = state.chartType === &#x27;pmf&#x27; ? binomialPMF(n, p, i) : binomialCDF(n, p, i);
+                dataValues.push(val);
+
+                // Highlight color rule
+                let isHighlighted = false;
+                if (state.queryMode === &#x27;exact&#x27; &amp;&amp; i === k) isHighlighted = true;
+                else if (state.queryMode === &#x27;lte&#x27; &amp;&amp; i &lt;= k) isHighlighted = true;
+                else if (state.queryMode === &#x27;gte&#x27; &amp;&amp; i &gt;= k) isHighlighted = true;
+
+                if (isHighlighted) {
+                    backgroundColors.push(&#x27;rgba(79, 70, 229, 0.9)&#x27;); // Indigo highlight
+                } else {
+                    backgroundColors.push(&#x27;rgba(203, 213, 225, 0.6)&#x27;); // Slate muted
+                }
+            }
+
+            if (chartInstance) {
+                chartInstance.data.labels = labels;
+                chartInstance.data.datasets[0].data = dataValues;
+                chartInstance.data.datasets[0].backgroundColor = backgroundColors;
+                chartInstance.data.datasets[0].label = state.chartType === &#x27;pmf&#x27; ? &#x27;Probability Mass Function P(X = x)&#x27; : &#x27;Cumulative Distribution Function P(X ≤ x)&#x27;;
+                chartInstance.update();
+            }
+        }
+
+        // Initialize Chart.js
+        function initBinomialChart() {
+            const ctx = document.getElementById(&#x27;binomialChart&#x27;).getContext(&#x27;2d&#x27;);
+            
+            const n = state.n;
+            const p = state.p;
+            const labels = [];
+            const dataValues = [];
+            const backgroundColors = [];
+
+            for (let i = 0; i &lt;= n; i++) {
+                labels.push(i);
+                dataValues.push(binomialPMF(n, p, i));
+                backgroundColors.push(i === state.k ? &#x27;rgba(79, 70, 229, 0.9)&#x27; : &#x27;rgba(203, 213, 225, 0.6)&#x27;);
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: &#x27;bar&#x27;,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: &#x27;Probability Mass Function P(X = x)&#x27;,
+                        data: dataValues,
+                        backgroundColor: backgroundColors,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: &#x27;top&#x27; },
+                        tooltip: {
+                            callbacks: {
+                                title: (items) =&gt; `Successes (k): ${items[0].label}`,
+                                label: (item) =&gt; `Probability: ${item.raw.toFixed(4)}`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            title: { display: true, text: &#x27;Number of Successes (x)&#x27; }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            max: 1.0,
+                            grid: { color: &#x27;rgba(241, 245, 249, 1)&#x27; },
+                            title: { display: true, text: &#x27;Probability&#x27; }
+                        }
+                    }
+                }
+            });
+            updateBinomialCalculations();
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            // Pre-load calculations for default view if rendered
+            updateBinomialCalculations();
+        };
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;" ></iframe>
+<iframe class="app-frame" id="frame-1" title="Version 2" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; class=&quot;h-full&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Discrete Probability Distributions&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/chart.js&quot;&gt;&lt;/script&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;style&gt;
+        body { font-family: &#x27;Inter&#x27;, sans-serif; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class=&quot;bg-slate-50 text-slate-800 h-full flex flex-col&quot;&gt;
+
+    &lt;header class=&quot;bg-indigo-900 text-white shadow-md sticky top-0 z-50&quot;&gt;
+        &lt;div class=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;&gt;
+            &lt;div class=&quot;flex justify-between h-16 items-center&quot;&gt;
+                &lt;div class=&quot;flex items-center space-x-3 cursor-pointer&quot; onclick=&quot;switchTab(&#x27;home&#x27;)&quot;&gt;
+                    &lt;div class=&quot;bg-indigo-700 p-2 rounded-lg text-indigo-200 font-bold text-lg&quot;&gt;
+                        &lt;svg class=&quot;w-6 h-6 inline&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z&quot;/&gt;&lt;/svg&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;span class=&quot;font-bold text-lg tracking-tight&quot;&gt;AIML Lab&lt;/span&gt;
+                        &lt;span class=&quot;block text-xs text-indigo-300&quot;&gt;Discrete Probability Distributions&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;nav class=&quot;flex space-x-1 sm:space-x-4&quot;&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; id=&quot;nav-home&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;&gt;Home&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; id=&quot;nav-binomial&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Binomial&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; id=&quot;nav-poisson&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Poisson&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; id=&quot;nav-geometric&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Geometric&lt;/button&gt;
+                &lt;/nav&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;main class=&quot;flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8&quot;&gt;
+
+        &lt;div id=&quot;view-home&quot; class=&quot;space-y-8&quot;&gt;
+            &lt;div class=&quot;bg-gradient-to-r from-indigo-900 to-blue-800 rounded-2xl p-8 text-white shadow-xl&quot;&gt;
+                &lt;h1 class=&quot;text-3xl sm:text-4xl font-extrabold tracking-tight mb-4&quot;&gt;Welcome to the AIML Probability Laboratory&lt;/h1&gt;
+                &lt;p class=&quot;text-indigo-100 max-w-3xl text-base sm:text-lg leading-relaxed mb-6&quot;&gt;
+                    Probability distributions form the mathematical backbone of Artificial Intelligence and Machine Learning. From binary classification metrics to generative modeling, understanding discrete random variables is crucial.
+                &lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold shadow hover:bg-indigo-50 transition transform hover:-translate-y-0.5&quot;&gt;
+                    Start Binomial Lab &amp;rarr;
+                &lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;grid grid-cols-1 md:grid-cols-3 gap-6&quot;&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-indigo-600 group-hover:text-white transition&quot;&gt;B&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;1. Binomial Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the number of successes in $n$ independent binary trials with success probability $p$. Essential for evaluating binary classifiers.&lt;/p&gt;
+                    &lt;span class=&quot;text-indigo-600 text-sm font-semibold group-hover:underline&quot;&gt;Explore Module &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;div onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-blue-600 group-hover:text-white transition&quot;&gt;P&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;2. Poisson Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models event arrival counts in fixed intervals. Useful for queueing systems and anomaly detection.&lt;/p&gt;
+                    &lt;span class=&quot;text-blue-600 text-sm font-semibold group-hover:underline&quot;&gt;Coming Soon &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;div onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-emerald-600 group-hover:text-white transition&quot;&gt;G&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;3. Geometric Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the number of trials needed to get the first success. Applied in search and trial-based algorithms.&lt;/p&gt;
+                    &lt;span class=&quot;text-emerald-600 text-sm font-semibold group-hover:underline&quot;&gt;Coming Soon &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div id=&quot;view-binomial&quot; class=&quot;hidden space-y-6&quot;&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4&quot;&gt;
+                &lt;div&gt;
+                    &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Binomial Distribution Module&lt;/h1&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Configure parameters $n$ and $p$ to examine probability mass functions and analytical properties.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;flex items-center space-x-2 bg-indigo-50 text-indigo-700 px-4 py-2 rounded-lg text-sm font-medium&quot;&gt;
+                    &lt;span&gt;Formula: $P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-3 gap-6&quot;&gt;
+                &lt;!-- Controls Card with Validation --&gt;
+                &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-6&quot;&gt;
+                    &lt;h2 class=&quot;text-lg font-semibold text-slate-900 border-b pb-3&quot;&gt;Distribution Parameters&lt;/h2&gt;
+                    
+                    &lt;!-- Error Banner --&gt;
+                    &lt;div id=&quot;error-banner&quot; class=&quot;hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-xs space-y-1&quot;&gt;
+                        &lt;p class=&quot;font-bold&quot;&gt;Validation Error:&lt;/p&gt;
+                        &lt;p id=&quot;error-message&quot;&gt;Please correct input parameters.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Trials n Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;div class=&quot;flex justify-between items-center&quot;&gt;
+                            &lt;label for=&quot;input-n&quot; class=&quot;text-sm font-medium text-slate-700&quot;&gt;Number of Trials ($n$)&lt;/label&gt;
+                            &lt;span id=&quot;badge-n&quot; class=&quot;bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded&quot;&gt;20&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;input id=&quot;input-n&quot; type=&quot;number&quot; min=&quot;1&quot; max=&quot;100&quot; value=&quot;20&quot; 
+                            class=&quot;w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;validateAndTriggerUpdate()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Must be a positive integer ($n \ge 1$).&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Probability p Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;div class=&quot;flex justify-between items-center&quot;&gt;
+                            &lt;label for=&quot;input-p&quot; class=&quot;text-sm font-medium text-slate-700&quot;&gt;Probability of Success ($p$)&lt;/label&gt;
+                            &lt;span id=&quot;badge-p&quot; class=&quot;bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded&quot;&gt;0.35&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;input id=&quot;input-p&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;1&quot; step=&quot;0.01&quot; value=&quot;0.35&quot; 
+                            class=&quot;w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;validateAndTriggerUpdate()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Must be between 0.0 and 1.0 inclusive.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Selected Values Display Box --&gt;
+                    &lt;div class=&quot;bg-indigo-50/60 p-4 rounded-xl border border-indigo-100 space-y-2&quot;&gt;
+                        &lt;h3 class=&quot;text-xs font-semibold uppercase tracking-wider text-indigo-900&quot;&gt;Active Parameter State&lt;/h3&gt;
+                        &lt;div class=&quot;flex justify-between text-sm text-indigo-950 font-medium&quot;&gt;
+                            &lt;span&gt;Trials ($n$):&lt;/span&gt;
+                            &lt;span id=&quot;display-n&quot; class=&quot;font-bold&quot;&gt;20&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;flex justify-between text-sm text-indigo-950 font-medium&quot;&gt;
+                            &lt;span&gt;Success Prob ($p$):&lt;/span&gt;
+                            &lt;span id=&quot;display-p&quot; class=&quot;font-bold&quot;&gt;0.35&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;flex justify-between text-sm text-indigo-950 font-medium&quot;&gt;
+                            &lt;span&gt;Failure Prob ($q = 1-p$):&lt;/span&gt;
+                            &lt;span id=&quot;display-q&quot; class=&quot;font-bold&quot;&gt;0.65&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Educational Note --&gt;
+                    &lt;div class=&quot;bg-slate-50 p-4 rounded-lg border border-slate-200 text-xs text-slate-600 space-y-2&quot;&gt;
+                        &lt;p class=&quot;font-semibold text-slate-700&quot;&gt;AIML Lab Context:&lt;/p&gt;
+                        &lt;p&gt;With $n = 20$ trials and success probability $p = 0.35$, this models a sequence of 20 binary classification decisions where each individual prediction has a 35% chance of being correct.&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Visualizations &amp; Statistics --&gt;
+                &lt;div class=&quot;lg:col-span-2 space-y-6&quot;&gt;
+                    &lt;!-- Statistics Grid --&gt;
+                    &lt;div class=&quot;grid grid-cols-1 sm:grid-cols-3 gap-4&quot;&gt;
+                        &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                            &lt;span class=&quot;text-xs font-medium text-slate-500 uppercase tracking-wider&quot;&gt;Expected Value / Mean ($\mu = np$)&lt;/span&gt;
+                            &lt;p id=&quot;stat-mean&quot; class=&quot;text-2xl font-bold text-indigo-900 mt-1&quot;&gt;7.00&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                            &lt;span class=&quot;text-xs font-medium text-slate-500 uppercase tracking-wider&quot;&gt;Variance ($\sigma^2 = npq$)&lt;/span&gt;
+                            &lt;p id=&quot;stat-variance&quot; class=&quot;text-2xl font-bold text-indigo-900 mt-1&quot;&gt;4.55&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                            &lt;span class=&quot;text-xs font-medium text-slate-500 uppercase tracking-wider&quot;&gt;Standard Deviation ($\sigma$)&lt;/span&gt;
+                            &lt;p id=&quot;stat-stddev&quot; class=&quot;text-2xl font-bold text-indigo-900 mt-1&quot;&gt;2.13&lt;/p&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Chart Card --&gt;
+                    &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                        &lt;div class=&quot;flex justify-between items-center&quot;&gt;
+                            &lt;h3 class=&quot;text-sm font-semibold text-slate-900&quot;&gt;Probability Mass Function (PMF) $P(X = k)$&lt;/h3&gt;
+                            &lt;span class=&quot;text-xs text-slate-500&quot;&gt;Discrete probability distribution&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;relative h-80 w-full&quot;&gt;
+                            &lt;canvas id=&quot;binomialChart&quot;&gt;&lt;/canvas&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div id=&quot;view-poisson&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;P&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Poisson Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Coming soon in the next lab session! This module will cover rate parameters ($\lambda$), event arrivals, and Poisson approximations.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Return to Home&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div id=&quot;view-geometric&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;G&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Geometric Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Coming soon in the next lab session! This module will explore wait times until first success and memoryless properties.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Return to Home&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/main&gt;
+
+    &lt;script&gt;
+        // State management with default values n = 20, p = 0.35
+        let state = {
+            n: 20,
+            p: 0.35,
+            isValid: true,
+            errorMessage: &quot;&quot;
+        };
+
+        let chartInstance = null;
+
+        // Tab Navigation Controller
+        function switchTab(tabId) {
+            [&#x27;home&#x27;, &#x27;binomial&#x27;, &#x27;poisson&#x27;, &#x27;geometric&#x27;].forEach(id =&gt; {
+                const view = document.getElementById(`view-${id}`);
+                const nav = document.getElementById(`nav-${id}`);
+                if (id === tabId) {
+                    view.classList.remove(&#x27;hidden&#x27;);
+                    if (nav) {
+                        nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;;
+                    }
+                } else {
+                    view.classList.add(&#x27;hidden&#x27;);
+                    if (nav) {
+                        nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;;
+                    }
+                }
+            });
+            window.scrollTo({ top: 0, behavior: &#x27;smooth&#x27; });
+            if (tabId === &#x27;binomial&#x27; &amp;&amp; !chartInstance) {
+                initBinomialChart();
+            } else if (tabId === &#x27;binomial&#x27; &amp;&amp; chartInstance &amp;&amp; state.isValid) {
+                updateBinomialCalculations();
+            }
+        }
+
+        // Combinatorics helper
+        function combinations(n, k) {
+            if (k &lt; 0 || k &gt; n) return 0;
+            if (k === 0 || k === n) return 1;
+            if (k &gt; n / 2) k = n - k;
+            let c = 1;
+            for (let i = 1; i &lt;= k; i++) {
+                c = c * (n - (i - 1)) / i;
+            }
+            return c;
+        }
+
+        // Binomial PMF
+        function binomialPMF(n, p, k) {
+            return combinations(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+        }
+
+        // Input validation and trigger update
+        function validateAndTriggerUpdate() {
+            const rawN = document.getElementById(&#x27;input-n&#x27;).value;
+            const rawP = document.getElementById(&#x27;input-p&#x27;).value;
+            const errorBanner = document.getElementById(&#x27;error-banner&#x27;);
+            const errorMessage = document.getElementById(&#x27;error-message&#x27;);
+
+            let errors = [];
+
+            // Parse and validate n
+            const parsedN = Number(rawN);
+            if (rawN === &quot;&quot; || isNaN(parsedN) || !Number.isInteger(parsedN) || parsedN &lt; 1) {
+                errors.push(&quot;Number of trials (n) must be a positive integer (n ≥ 1).&quot;);
+            } else if (parsedN &gt; 200) {
+                errors.push(&quot;Number of trials (n) cannot exceed 200 for rendering performance.&quot;);
+            }
+
+            // Parse and validate p
+            const parsedP = Number(rawP);
+            if (rawP === &quot;&quot; || isNaN(parsedP) || parsedP &lt; 0 || parsedP &gt; 1) {
+                errors.push(&quot;Probability of success (p) must be a valid number between 0 and 1.&quot;);
+            }
+
+            if (errors.length &gt; 0) {
+                state.isValid = false;
+                state.errorMessage = errors.join(&quot; &quot;);
+                errorBanner.classList.remove(&#x27;hidden&#x27;);
+                errorMessage.innerText = state.errorMessage;
+                return;
+            }
+
+            // Inputs are valid
+            state.isValid = true;
+            state.n = parsedN;
+            state.p = parsedP;
+            errorBanner.classList.add(&#x27;hidden&#x27;);
+
+            // Update badges &amp; active display
+            document.getElementById(&#x27;badge-n&#x27;).innerText = state.n;
+            document.getElementById(&#x27;badge-p&#x27;).innerText = state.p;
+            document.getElementById(&#x27;display-n&#x27;).innerText = state.n;
+            document.getElementById(&#x27;display-p&#x27;).innerText = state.p;
+            document.getElementById(&#x27;display-q&#x27;).innerText = (1 - state.p).toFixed(2);
+
+            updateBinomialCalculations();
+        }
+
+        // Core calculation update &amp; chart refresh
+        function updateBinomialCalculations() {
+            if (!state.isValid) return;
+
+            const n = state.n;
+            const p = state.p;
+
+            // Compute statistics
+            const mean = n * p;
+            const variance = n * p * (1 - p);
+            const stdDev = Math.sqrt(variance);
+
+            document.getElementById(&#x27;stat-mean&#x27;).innerText = mean.toFixed(2);
+            document.getElementById(&#x27;stat-variance&#x27;).innerText = variance.toFixed(2);
+            document.getElementById(&#x27;stat-stddev&#x27;).innerText = stdDev.toFixed(2);
+
+            // Prepare chart data
+            const labels = [];
+            const dataValues = [];
+
+            for (let i = 0; i &lt;= n; i++) {
+                labels.push(i);
+                dataValues.push(binomialPMF(n, p, i));
+            }
+
+            if (chartInstance) {
+                chartInstance.data.labels = labels;
+                chartInstance.data.datasets[0].data = dataValues;
+                chartInstance.update();
+            }
+        }
+
+        // Initialize Chart.js
+        function initBinomialChart() {
+            const ctx = document.getElementById(&#x27;binomialChart&#x27;).getContext(&#x27;2d&#x27;);
+            
+            const n = state.n;
+            const p = state.p;
+            const labels = [];
+            const dataValues = [];
+
+            for (let i = 0; i &lt;= n; i++) {
+                labels.push(i);
+                dataValues.push(binomialPMF(n, p, i));
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: &#x27;bar&#x27;,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: &#x27;Probability Mass Function P(X = k)&#x27;,
+                        data: dataValues,
+                        backgroundColor: &#x27;rgba(79, 70, 229, 0.8)&#x27;,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: &#x27;top&#x27; },
+                        tooltip: {
+                            callbacks: {
+                                title: (items) =&gt; `Successes (k): ${items[0].label}`,
+                                label: (item) =&gt; `Probability: ${item.raw.toFixed(4)}`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            title: { display: true, text: &#x27;Number of Successes (k)&#x27; }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: &#x27;rgba(241, 245, 249, 1)&#x27; },
+                            title: { display: true, text: &#x27;Probability P(X = k)&#x27; }
+                        }
+                    }
+                }
+            });
+            updateBinomialCalculations();
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            validateAndTriggerUpdate();
+        };
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;" loading="lazy"></iframe>
+<iframe class="app-frame" id="frame-2" title="Version 3" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; class=&quot;h-full&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Discrete Probability Distributions - AIML Lab (Prompt 4)&lt;/title&gt;
+    &lt;!-- Tailwind CSS CDN --&gt;
+    &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+    &lt;!-- Google Fonts --&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    
+    &lt;style&gt;
+        body { font-family: &#x27;Inter&#x27;, sans-serif; }
+        /* Hide spin buttons for numeric inputs */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] { -moz-appearance: textfield; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class=&quot;bg-slate-50 text-slate-800 h-full flex flex-col&quot;&gt;
+
+    &lt;!-- Navigation Header --&gt;
+    &lt;header class=&quot;bg-indigo-900 text-white shadow-lg sticky top-0 z-50&quot;&gt;
+        &lt;div class=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;&gt;
+            &lt;div class=&quot;flex justify-between h-16 items-center&quot;&gt;
+                &lt;div class=&quot;flex items-center space-x-3 cursor-pointer&quot; onclick=&quot;switchTab(&#x27;home&#x27;)&quot;&gt;
+                    &lt;div class=&quot;bg-indigo-700 p-2 rounded-lg text-indigo-200 font-bold text-lg&quot;&gt;
+                        &lt;svg class=&quot;w-6 h-6 inline&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z&quot;/&gt;&lt;/svg&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;span class=&quot;font-bold text-lg tracking-tight&quot;&gt;Discrete Probability Distributions&lt;/span&gt;
+                        &lt;span class=&quot;block text-xs text-indigo-300&quot;&gt;AIML Laboratory&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;nav class=&quot;flex space-x-1 sm:space-x-3&quot;&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; id=&quot;nav-home&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Home&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; id=&quot;nav-binomial&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;&gt;Binomial&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; id=&quot;nav-poisson&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Poisson&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; id=&quot;nav-geometric&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Geometric&lt;/button&gt;
+                &lt;/nav&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- Main Content Area --&gt;
+    &lt;main class=&quot;flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8&quot;&gt;
+
+        &lt;!-- VIEW 1: HOME --&gt;
+        &lt;div id=&quot;view-home&quot; class=&quot;hidden space-y-8&quot;&gt;
+            &lt;div class=&quot;bg-gradient-to-r from-indigo-900 via-indigo-800 to-blue-800 rounded-2xl p-8 text-white shadow-xl&quot;&gt;
+                &lt;h1 class=&quot;text-3xl sm:text-4xl font-extrabold tracking-tight mb-4&quot;&gt;AIML Probability &amp; Statistics Laboratory&lt;/h1&gt;
+                &lt;p class=&quot;text-indigo-100 max-w-3xl text-base sm:text-lg leading-relaxed mb-6&quot;&gt;
+                    Welcome to the undergraduate laboratory for Discrete Probability Distributions. Select a distribution module to analyze parameters, formulas, statistical moments, and probability mass evaluations.
+                &lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold shadow hover:bg-indigo-50 transition transform hover:-translate-y-0.5&quot;&gt;
+                    Launch Binomial Module &amp;rarr;
+                &lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;grid grid-cols-1 md:grid-cols-3 gap-6&quot;&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-indigo-600 group-hover:text-white transition&quot;&gt;B&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Binomial Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the number of successes in $n$ independent Bernoulli trials with probability $p$. Active module.&lt;/p&gt;
+                    &lt;span class=&quot;text-indigo-600 text-sm font-semibold group-hover:underline&quot;&gt;Explore Module &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;div onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-blue-600 group-hover:text-white transition&quot;&gt;P&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Poisson Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models event count occurrences within fixed intervals given average rate parameter $\lambda$.&lt;/p&gt;
+                    &lt;span class=&quot;text-blue-600 text-sm font-semibold group-hover:underline&quot;&gt;Placeholder &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;div onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-emerald-600 group-hover:text-white transition&quot;&gt;G&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Geometric Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the required number of trials needed to observe the first success.&lt;/p&gt;
+                    &lt;span class=&quot;text-emerald-600 text-sm font-semibold group-hover:underline&quot;&gt;Placeholder &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 2: BINOMIAL DISTRIBUTION (ACTIVE) --&gt;
+        &lt;div id=&quot;view-binomial&quot; class=&quot;space-y-6&quot;&gt;
+            
+            &lt;!-- Module Header Banner --&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4&quot;&gt;
+                &lt;div&gt;
+                    &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Binomial Distribution Module&lt;/h1&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Configure $n$, $p$, and target success value $k$ to compute analytical statistics and exact PMF probabilities.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;bg-indigo-50 border border-indigo-100 text-indigo-800 px-4 py-2 rounded-lg text-sm font-medium&quot;&gt;
+                    $X \sim \text{Binomial}(n, p)$
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Error Banner --&gt;
+            &lt;div id=&quot;error-banner&quot; class=&quot;hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm flex items-start space-x-2&quot;&gt;
+                &lt;svg class=&quot;w-5 h-5 text-red-500 flex-shrink-0 mt-0.5&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z&quot;/&gt;&lt;/svg&gt;
+                &lt;div&gt;
+                    &lt;span class=&quot;font-bold&quot;&gt;Validation Error: &lt;/span&gt;
+                    &lt;span id=&quot;error-message&quot;&gt;Please check input parameter limits.&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Inputs Panel --&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200&quot;&gt;
+                &lt;h2 class=&quot;text-lg font-semibold text-slate-900 border-b pb-3 mb-4&quot;&gt;Module Inputs&lt;/h2&gt;
+                &lt;div class=&quot;grid grid-cols-1 sm:grid-cols-3 gap-6&quot;&gt;
+                    
+                    &lt;!-- n Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-n&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Number of Trials ($n$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-n&quot; type=&quot;number&quot; min=&quot;1&quot; step=&quot;1&quot; value=&quot;20&quot; 
+                            class=&quot;w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;updateAllCalculations()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Positive integer ($n \ge 1$). Default: 20.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- p Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-p&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Probability of Success ($p$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-p&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;1&quot; step=&quot;0.01&quot; value=&quot;0.35&quot; 
+                            class=&quot;w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;updateAllCalculations()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Probability ($0 \le p \le 1$). Default: 0.35.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- k Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-k&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Target Successes ($k$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-k&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;1&quot; value=&quot;7&quot; 
+                            class=&quot;w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;updateAllCalculations()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Integer ($0 \le k \le n$). Default: 7.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Statistics Cards Grid --&gt;
+            &lt;div&gt;
+                &lt;h2 class=&quot;text-sm font-semibold uppercase tracking-wider text-slate-500 mb-3&quot;&gt;Calculated Distribution Properties&lt;/h2&gt;
+                &lt;div class=&quot;grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4&quot;&gt;
+                    
+                    &lt;!-- Mean --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Mean ($\mu$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;n &amp;middot; p&lt;/span&gt;
+                        &lt;p id=&quot;stat-mean&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;7&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Variance --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Variance ($\sigma^2$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;n &amp;middot; p &amp;middot; (1 - p)&lt;/span&gt;
+                        &lt;p id=&quot;stat-variance&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;4.55&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Standard Deviation --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Std Deviation ($\sigma$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;&amp;radic;(Variance)&lt;/span&gt;
+                        &lt;p id=&quot;stat-stddev&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;2.1331&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Second Moment --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;2nd Moment E[X&amp;sup2;]&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;Variance + Mean&amp;sup2;&lt;/span&gt;
+                        &lt;p id=&quot;stat-moment2&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;53.55&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Skewness --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200 sm:col-span-2 lg:col-span-1&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Skewness ($\gamma_1$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;(1 - 2p) / &amp;sigma;&lt;/span&gt;
+                        &lt;p id=&quot;stat-skewness&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;0.1406&lt;/p&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- PMF Calculator Panel --&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 gap-2&quot;&gt;
+                    &lt;div&gt;
+                        &lt;h2 class=&quot;text-lg font-bold text-slate-900&quot;&gt;Binomial PMF Calculator&lt;/h2&gt;
+                        &lt;p class=&quot;text-sm text-slate-500&quot;&gt;Evaluates $P(X = k)$ for the specified parameters.&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;span class=&quot;bg-amber-100 text-amber-800 text-xs font-semibold px-3 py-1 rounded-full&quot;&gt;Exact Probability&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Mathematical Expression Box --&gt;
+                &lt;div class=&quot;p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2&quot;&gt;
+                    &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Mathematical Formula&lt;/span&gt;
+                    &lt;div class=&quot;font-mono text-sm sm:text-base text-indigo-900 font-bold&quot;&gt;
+                        P(X = k) = C(n, k) &amp;middot; p&lt;sup&gt;k&lt;/sup&gt; &amp;middot; (1 - p)&lt;sup&gt;n - k&lt;/sup&gt;
+                    &lt;/div&gt;
+                    &lt;div id=&quot;pmf-sub-formula&quot; class=&quot;font-mono text-xs text-slate-600&quot;&gt;
+                        P(X = 7) = C(20, 7) &amp;middot; (0.35)&lt;sup&gt;7&lt;/sup&gt; &amp;middot; (0.65)&lt;sup&gt;13&lt;/sup&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- PMF Result Display --&gt;
+                &lt;div class=&quot;p-5 bg-amber-50/60 border border-amber-200 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4&quot;&gt;
+                    &lt;div&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-amber-800 uppercase tracking-wider block&quot;&gt;Calculated Result&lt;/span&gt;
+                        &lt;div class=&quot;text-3xl sm:text-4xl font-extrabold text-amber-700 mt-1&quot;&gt;
+                            P(X = &lt;span class=&quot;val-k&quot;&gt;7&lt;/span&gt;) = &lt;span id=&quot;pmf-result&quot;&gt;0.1844&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;text-xs text-amber-900 bg-amber-100/80 p-3 rounded-lg border border-amber-200 max-w-md&quot;&gt;
+                        &lt;span class=&quot;font-bold block mb-0.5&quot;&gt;Interpretation:&lt;/span&gt;
+                        &lt;span id=&quot;pmf-sentence-explanation&quot;&gt;
+                            This represents the exact probability of obtaining exactly 7 successes out of 20 independent trials.
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Active Parameter Bar --&gt;
+            &lt;div class=&quot;bg-slate-100 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-center text-sm text-slate-600&quot;&gt;
+                &lt;span&gt;Selected Parameters: &lt;strong id=&quot;active-params&quot; class=&quot;text-slate-800&quot;&gt;n = 20, p = 0.35, k = 7&lt;/strong&gt;&lt;/span&gt;
+                &lt;span class=&quot;text-xs text-slate-500 mt-1 sm:mt-0&quot;&gt;Verification check: Default n=20, p=0.35 yields Mean = 7, Variance = 4.55&lt;/span&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 3: POISSON PLACEHOLDER --&gt;
+        &lt;div id=&quot;view-poisson&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;P&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Poisson Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Module placeholder for future AIML lab exercises.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Go to Binomial&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 4: GEOMETRIC PLACEHOLDER --&gt;
+        &lt;div id=&quot;view-geometric&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;G&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Geometric Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Module placeholder for future AIML lab exercises.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Go to Binomial&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/main&gt;
+
+    &lt;script&gt;
+        // Tab Navigation Controller
+        function switchTab(tabId) {
+            [&#x27;home&#x27;, &#x27;binomial&#x27;, &#x27;poisson&#x27;, &#x27;geometric&#x27;].forEach(id =&gt; {
+                const view = document.getElementById(`view-${id}`);
+                const nav = document.getElementById(`nav-${id}`);
+                if (id === tabId) {
+                    view.classList.remove(&#x27;hidden&#x27;);
+                    if (nav) nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;;
+                } else {
+                    view.classList.add(&#x27;hidden&#x27;);
+                    if (nav) nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;;
+                }
+            });
+            window.scrollTo({ top: 0, behavior: &#x27;smooth&#x27; });
+        }
+
+        // Calculate Combinations C(n, k) using Log-Gamma for numerical stability
+        function logGamma(n) {
+            const coeff = [
+                76.18009172947146, -86.50532032941677,
+                24.01409824083091, -1.231739572450155,
+                0.1208650973866179e-2, -0.5395239384953e-5
+            ];
+            let x = n, y = n;
+            let tmp = x + 5.5;
+            tmp -= (x + 0.5) * Math.log(tmp);
+            let ser = 1.000000000190015;
+            for (let j = 0; j &lt;= 5; j++) {
+                y += 1;
+                ser += coeff[j] / y;
+            }
+            return -tmp + Math.log(2.5066282746310005 * ser / x);
+        }
+
+        function logFactorial(n) {
+            if (n &lt;= 1) return 0;
+            return logGamma(n + 1);
+        }
+
+        function calculatePMF(n, p, k) {
+            if (k &lt; 0 || k &gt; n) return 0;
+            if (p === 0) return k === 0 ? 1 : 0;
+            if (p === 1) return k === n ? 1 : 0;
+            
+            const logComb = logFactorial(n) - (logFactorial(k) + logFactorial(n - k));
+            const logProb = logComb + (k * Math.log(p)) + ((n - k) * Math.log(1 - p));
+            return Math.exp(logProb);
+        }
+
+        // Validate Inputs and Recalculate
+        function updateAllCalculations() {
+            const rawN = document.getElementById(&#x27;input-n&#x27;).value;
+            const rawP = document.getElementById(&#x27;input-p&#x27;).value;
+            const rawK = document.getElementById(&#x27;input-k&#x27;).value;
+
+            const errorBanner = document.getElementById(&#x27;error-banner&#x27;);
+            const errorMessage = document.getElementById(&#x27;error-message&#x27;);
+
+            let errors = [];
+
+            // 1. Validate n
+            const n = Number(rawN);
+            if (rawN === &quot;&quot; || isNaN(n) || !Number.isInteger(n) || n &lt; 1) {
+                errors.push(&quot;n must be a positive integer (n ≥ 1).&quot;);
+            }
+
+            // 2. Validate p
+            const p = Number(rawP);
+            if (rawP === &quot;&quot; || isNaN(p) || p &lt; 0 || p &gt; 1) {
+                errors.push(&quot;p must be between 0 and 1 (0 ≤ p ≤ 1).&quot;);
+            }
+
+            // 3. Validate k
+            const k = Number(rawK);
+            if (rawK === &quot;&quot; || isNaN(k) || !Number.isInteger(k) || k &lt; 0) {
+                errors.push(&quot;k must be a non-negative integer (k ≥ 0).&quot;);
+            } else if (!isNaN(n) &amp;&amp; Number.isInteger(n) &amp;&amp; k &gt; n) {
+                errors.push(`k must be less than or equal to n (0 ≤ k ≤ ${n}).`);
+            }
+
+            // Show error banner if invalid
+            if (errors.length &gt; 0) {
+                errorBanner.classList.remove(&#x27;hidden&#x27;);
+                errorMessage.innerText = errors.join(&quot; &quot;);
+                return;
+            }
+
+            // Inputs valid
+            errorBanner.classList.add(&#x27;hidden&#x27;);
+            document.getElementById(&#x27;input-k&#x27;).max = n;
+
+            // Sync parameter display text
+            document.getElementById(&#x27;active-params&#x27;).innerText = `n = ${n}, p = ${p}, k = ${k}`;
+            document.querySelectorAll(&#x27;.val-k&#x27;).forEach(el =&gt; el.innerText = k);
+
+            // Calculate Statistics
+            const mean = n * p;
+            const variance = n * p * (1 - p);
+            const stdDev = Math.sqrt(variance);
+            const moment2 = variance + (mean * mean);
+            const skewness = stdDev === 0 ? 0 : (1 - 2 * p) / stdDev;
+
+            const formatNum = (val) =&gt; Number.isInteger(val) ? val.toString() : parseFloat(val.toFixed(4)).toString();
+
+            document.getElementById(&#x27;stat-mean&#x27;).innerText = formatNum(mean);
+            document.getElementById(&#x27;stat-variance&#x27;).innerText = formatNum(variance);
+            document.getElementById(&#x27;stat-stddev&#x27;).innerText = formatNum(stdDev);
+            document.getElementById(&#x27;stat-moment2&#x27;).innerText = formatNum(moment2);
+            document.getElementById(&#x27;stat-skewness&#x27;).innerText = formatNum(skewness);
+
+            // Calculate PMF P(X = k)
+            const pmfVal = calculatePMF(n, p, k);
+            const formattedPmf = pmfVal.toFixed(4);
+
+            document.getElementById(&#x27;pmf-result&#x27;).innerText = formattedPmf;
+            
+            // Sub-formula string update
+            const q = (1 - p).toFixed(4);
+            document.getElementById(&#x27;pmf-sub-formula&#x27;).innerText = 
+                `P(X = ${k}) = C(${n}, ${k}) \u00B7 (${p})` + (k !== 1 ? `\u207F` : &#x27;&#x27;) + ` \u00B7 (${q})` + (n - k !== 1 ? `\u207F` : &#x27;&#x27;);
+
+            // Simple sentence explanation
+            document.getElementById(&#x27;pmf-sentence-explanation&#x27;).innerText = 
+                `This represents the exact probability of obtaining exactly ${k} success${k === 1 ? &#x27;&#x27; : &#x27;es&#x27;} out of ${n} independent trials.`;
+        }
+
+        // Initialize calculations on window load
+        window.onload = function() {
+            updateAllCalculations();
+        };
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;" loading="lazy"></iframe>
+<iframe class="app-frame" id="frame-3" title="Version 4" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; class=&quot;h-full&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Discrete Probability Distributions - Prompt 3&lt;/title&gt;
+    &lt;!-- Tailwind CSS CDN --&gt;
+    &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+    &lt;!-- Google Fonts --&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    
+    &lt;style&gt;
+        body { font-family: &#x27;Inter&#x27;, sans-serif; }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] { -moz-appearance: textfield; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class=&quot;bg-slate-50 text-slate-800 h-full flex flex-col&quot;&gt;
+
+    &lt;!-- Navigation Header --&gt;
+    &lt;header class=&quot;bg-indigo-900 text-white shadow-lg sticky top-0 z-50&quot;&gt;
+        &lt;div class=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;&gt;
+            &lt;div class=&quot;flex justify-between h-16 items-center&quot;&gt;
+                &lt;div class=&quot;flex items-center space-x-3 cursor-pointer&quot; onclick=&quot;switchTab(&#x27;home&#x27;)&quot;&gt;
+                    &lt;div class=&quot;bg-indigo-700 p-2 rounded-lg text-indigo-200 font-bold text-lg&quot;&gt;
+                        &lt;svg class=&quot;w-6 h-6 inline&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z&quot;/&gt;&lt;/svg&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;span class=&quot;font-bold text-lg tracking-tight&quot;&gt;AIML Lab&lt;/span&gt;
+                        &lt;span class=&quot;block text-xs text-indigo-300&quot;&gt;Discrete Probability Distributions&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;nav class=&quot;flex space-x-1 sm:space-x-3&quot;&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; id=&quot;nav-home&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Home&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; id=&quot;nav-binomial&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;&gt;Binomial&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; id=&quot;nav-poisson&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Poisson&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; id=&quot;nav-geometric&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Geometric&lt;/button&gt;
+                &lt;/nav&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- Main Content Area --&gt;
+    &lt;main class=&quot;flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8&quot;&gt;
+
+        &lt;!-- VIEW 1: HOME --&gt;
+        &lt;div id=&quot;view-home&quot; class=&quot;hidden space-y-8&quot;&gt;
+            &lt;div class=&quot;bg-gradient-to-r from-indigo-900 via-indigo-800 to-blue-800 rounded-2xl p-8 text-white shadow-xl&quot;&gt;
+                &lt;h1 class=&quot;text-3xl sm:text-4xl font-extrabold tracking-tight mb-4&quot;&gt;AIML Probability &amp; Statistics Laboratory&lt;/h1&gt;
+                &lt;p class=&quot;text-indigo-100 max-w-3xl text-base sm:text-lg leading-relaxed mb-6&quot;&gt;
+                    Welcome to the undergraduate interactive lab for Discrete Probability Distributions. Select a distribution module above to begin exploring parameters and statistical moments.
+                &lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold shadow hover:bg-indigo-50 transition transform hover:-translate-y-0.5&quot;&gt;
+                    Launch Binomial Module &amp;rarr;
+                &lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;grid grid-cols-1 md:grid-cols-3 gap-6&quot;&gt;
+                &lt;!-- Binomial Card --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-indigo-600 group-hover:text-white transition&quot;&gt;B&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Binomial Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the number of successes in $n$ independent Bernoulli trials with probability $p$. Active module.&lt;/p&gt;
+                    &lt;span class=&quot;text-indigo-600 text-sm font-semibold group-hover:underline&quot;&gt;Explore Module &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Poisson Card Placeholder --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-blue-600 group-hover:text-white transition&quot;&gt;P&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Poisson Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models event count occurrences within fixed intervals of time or space given rate parameter $\lambda$.&lt;/p&gt;
+                    &lt;span class=&quot;text-blue-600 text-sm font-semibold group-hover:underline&quot;&gt;Placeholder &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Geometric Card Placeholder --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-emerald-600 group-hover:text-white transition&quot;&gt;G&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Geometric Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the required number of trial attempts needed to observe the first success with success probability $p$.&lt;/p&gt;
+                    &lt;span class=&quot;text-emerald-600 text-sm font-semibold group-hover:underline&quot;&gt;Placeholder &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 2: BINOMIAL DISTRIBUTION (ACTIVE) --&gt;
+        &lt;div id=&quot;view-binomial&quot; class=&quot;space-y-6&quot;&gt;
+            
+            &lt;!-- Module Title Banner --&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4&quot;&gt;
+                &lt;div&gt;
+                    &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Binomial Distribution Module&lt;/h1&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Configure parameter values $n$ and $p$ to evaluate fundamental statistical measures.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;bg-indigo-50 border border-indigo-100 text-indigo-800 px-4 py-2 rounded-lg text-sm font-medium&quot;&gt;
+                    Parameters: $n$ trials, $p$ success probability
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Error Banner --&gt;
+            &lt;div id=&quot;error-banner&quot; class=&quot;hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm flex items-start space-x-2&quot;&gt;
+                &lt;svg class=&quot;w-5 h-5 text-red-500 flex-shrink-0 mt-0.5&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z&quot;/&gt;&lt;/svg&gt;
+                &lt;div&gt;
+                    &lt;span class=&quot;font-bold&quot;&gt;Validation Error: &lt;/span&gt;
+                    &lt;span id=&quot;error-message&quot;&gt;Please check input parameter limits.&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Inputs Panel --&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200&quot;&gt;
+                &lt;h2 class=&quot;text-lg font-semibold text-slate-900 border-b pb-3 mb-4&quot;&gt;Input Parameters&lt;/h2&gt;
+                &lt;div class=&quot;grid grid-cols-1 md:grid-cols-2 gap-6&quot;&gt;
+                    
+                    &lt;!-- n Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-n&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Number of Trials ($n$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-n&quot; type=&quot;number&quot; min=&quot;1&quot; value=&quot;20&quot; step=&quot;1&quot;
+                            class=&quot;w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;calculateStatistics()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Must be a positive integer ($n \ge 1$). Default: 20.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- p Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-p&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Probability of Success ($p$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-p&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;1&quot; step=&quot;0.01&quot; value=&quot;0.35&quot; 
+                            class=&quot;w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;calculateStatistics()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Must be between 0 and 1 ($0 \le p \le 1$). Default: 0.35.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Statistics Cards Grid --&gt;
+            &lt;div&gt;
+                &lt;h2 class=&quot;text-sm font-semibold uppercase tracking-wider text-slate-500 mb-3&quot;&gt;Calculated Statistical Properties&lt;/h2&gt;
+                &lt;div class=&quot;grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4&quot;&gt;
+                    
+                    &lt;!-- Mean --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Mean ($\mu$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;n &amp;middot; p&lt;/span&gt;
+                        &lt;p id=&quot;stat-mean&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;7&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Variance --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Variance ($\sigma^2$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;n &amp;middot; p &amp;middot; (1 - p)&lt;/span&gt;
+                        &lt;p id=&quot;stat-variance&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;4.55&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Standard Deviation --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Std Deviation ($\sigma$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;&amp;radic;(Variance)&lt;/span&gt;
+                        &lt;p id=&quot;stat-stddev&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;2.1331&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Second Moment --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;2nd Moment E[X&amp;sup2;]&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;Variance + Mean&amp;sup2;&lt;/span&gt;
+                        &lt;p id=&quot;stat-moment2&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;53.55&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Skewness --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200 sm:col-span-2 lg:col-span-1&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Skewness ($\gamma_1$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;(1 - 2p) / &amp;sigma;&lt;/span&gt;
+                        &lt;p id=&quot;stat-skewness&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;0.1406&lt;/p&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Active Parameter Summary --&gt;
+            &lt;div class=&quot;bg-slate-100 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-center text-sm text-slate-600&quot;&gt;
+                &lt;span&gt;Selected Parameters: &lt;strong id=&quot;active-params&quot; class=&quot;text-slate-800&quot;&gt;n = 20, p = 0.35&lt;/strong&gt;&lt;/span&gt;
+                &lt;span class=&quot;text-xs text-slate-500 mt-1 sm:mt-0&quot;&gt;Verification check: Default values yields Mean = 7, Variance = 4.55&lt;/span&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 3: POISSON PLACEHOLDER --&gt;
+        &lt;div id=&quot;view-poisson&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;P&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Poisson Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Module placeholder for future lab exercises.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Go to Binomial&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 4: GEOMETRIC PLACEHOLDER --&gt;
+        &lt;div id=&quot;view-geometric&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;G&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Geometric Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Module placeholder for future lab exercises.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Go to Binomial&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/main&gt;
+
+    &lt;script&gt;
+        // Tab Navigation Controller
+        function switchTab(tabId) {
+            [&#x27;home&#x27;, &#x27;binomial&#x27;, &#x27;poisson&#x27;, &#x27;geometric&#x27;].forEach(id =&gt; {
+                const view = document.getElementById(`view-${id}`);
+                const nav = document.getElementById(`nav-${id}`);
+                if (id === tabId) {
+                    view.classList.remove(&#x27;hidden&#x27;);
+                    if (nav) nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;;
+                } else {
+                    view.classList.add(&#x27;hidden&#x27;);
+                    if (nav) nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;;
+                }
+            });
+            window.scrollTo({ top: 0, behavior: &#x27;smooth&#x27; });
+        }
+
+        // Calculate and Validate Binomial Statistics
+        function calculateStatistics() {
+            const rawN = document.getElementById(&#x27;input-n&#x27;).value;
+            const rawP = document.getElementById(&#x27;input-p&#x27;).value;
+            const errorBanner = document.getElementById(&#x27;error-banner&#x27;);
+            const errorMessage = document.getElementById(&#x27;error-message&#x27;);
+
+            let errors = [];
+
+            // Validation for n
+            const n = Number(rawN);
+            if (rawN === &quot;&quot; || isNaN(n) || !Number.isInteger(n) || n &lt; 1) {
+                errors.push(&quot;n must be a positive integer (n ≥ 1).&quot;);
+            }
+
+            // Validation for p
+            const p = Number(rawP);
+            if (rawP === &quot;&quot; || isNaN(p) || p &lt; 0 || p &gt; 1) {
+                errors.push(&quot;p must be between 0 and 1 (0 ≤ p ≤ 1).&quot;);
+            }
+
+            // Handle errors
+            if (errors.length &gt; 0) {
+                errorBanner.classList.remove(&#x27;hidden&#x27;);
+                errorMessage.innerText = errors.join(&quot; &quot;);
+                return;
+            }
+
+            // Inputs are valid
+            errorBanner.classList.add(&#x27;hidden&#x27;);
+            document.getElementById(&#x27;active-params&#x27;).innerText = `n = ${n}, p = ${p}`;
+
+            // 1. Mean = n * p
+            const mean = n * p;
+
+            // 2. Variance = n * p * (1 - p)
+            const variance = n * p * (1 - p);
+
+            // 3. Standard deviation = sqrt(variance)
+            const stdDev = Math.sqrt(variance);
+
+            // 4. Second moment E[X^2] = Variance + Mean^2
+            const moment2 = variance + (mean * mean);
+
+            // 5. Skewness = (1 - 2*p) / sqrt(n*p*(1-p))
+            const skewness = stdDev === 0 ? 0 : (1 - 2 * p) / stdDev;
+
+            // Format numbers helper
+            const formatNum = (val) =&gt; {
+                if (Number.isInteger(val)) return val.toString();
+                return parseFloat(val.toFixed(4)).toString();
+            };
+
+            // Display results in cards
+            document.getElementById(&#x27;stat-mean&#x27;).innerText = formatNum(mean);
+            document.getElementById(&#x27;stat-variance&#x27;).innerText = formatNum(variance);
+            document.getElementById(&#x27;stat-stddev&#x27;).innerText = formatNum(stdDev);
+            document.getElementById(&#x27;stat-moment2&#x27;).innerText = formatNum(moment2);
+            document.getElementById(&#x27;stat-skewness&#x27;).innerText = formatNum(skewness);
+        }
+
+        // Initialize default calculations on window load
+        window.onload = function() {
+            calculateStatistics();
+        };
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;" loading="lazy"></iframe>
+<iframe class="app-frame" id="frame-4" title="Version 5" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; class=&quot;h-full&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Discrete Probability Distributions - AIML Lab&lt;/title&gt;
+    &lt;!-- Tailwind CSS CDN --&gt;
+    &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+    &lt;!-- Chart.js CDN --&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/chart.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- Chart.js Annotation Plugin CDN --&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1/dist/chartjs-plugin-annotation.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- Google Fonts --&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    
+    &lt;style&gt;
+        body { font-family: &#x27;Inter&#x27;, sans-serif; }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] { -moz-appearance: textfield; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class=&quot;bg-slate-50 text-slate-800 h-full flex flex-col&quot;&gt;
+
+    &lt;!-- Navigation Header --&gt;
+    &lt;header class=&quot;bg-indigo-900 text-white shadow-lg sticky top-0 z-50&quot;&gt;
+        &lt;div class=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;&gt;
+            &lt;div class=&quot;flex justify-between h-16 items-center&quot;&gt;
+                &lt;div class=&quot;flex items-center space-x-3 cursor-pointer&quot; onclick=&quot;switchTab(&#x27;home&#x27;)&quot;&gt;
+                    &lt;div class=&quot;bg-indigo-700 p-2 rounded-lg text-indigo-200 font-bold text-lg&quot;&gt;
+                        &lt;svg class=&quot;w-6 h-6 inline&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z&quot;/&gt;&lt;/svg&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;span class=&quot;font-bold text-lg tracking-tight&quot;&gt;AIML Lab&lt;/span&gt;
+                        &lt;span class=&quot;block text-xs text-indigo-300&quot;&gt;Discrete Probability Distributions&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;nav class=&quot;flex space-x-1 sm:space-x-3&quot;&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; id=&quot;nav-home&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;&gt;Home&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; id=&quot;nav-binomial&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Binomial&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; id=&quot;nav-poisson&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Poisson&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; id=&quot;nav-geometric&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Geometric&lt;/button&gt;
+                &lt;/nav&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- Main Content Container --&gt;
+    &lt;main class=&quot;flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8&quot;&gt;
+
+        &lt;!-- VIEW 1: HOME --&gt;
+        &lt;div id=&quot;view-home&quot; class=&quot;space-y-8&quot;&gt;
+            &lt;div class=&quot;bg-gradient-to-r from-indigo-900 via-indigo-800 to-blue-800 rounded-2xl p-8 text-white shadow-xl&quot;&gt;
+                &lt;h1 class=&quot;text-3xl sm:text-4xl font-extrabold tracking-tight mb-4&quot;&gt;AIML Probability &amp; Statistics Laboratory&lt;/h1&gt;
+                &lt;p class=&quot;text-indigo-100 max-w-3xl text-base sm:text-lg leading-relaxed mb-6&quot;&gt;
+                    Welcome to the undergraduate interactive lab for Discrete Probability Distributions. Explore discrete random variables, analytical metrics, probability calculations, cumulative functions, and live interactive graphs.
+                &lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold shadow hover:bg-indigo-50 transition transform hover:-translate-y-0.5&quot;&gt;
+                    Explore Binomial Lab &amp;rarr;
+                &lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;grid grid-cols-1 md:grid-cols-3 gap-6&quot;&gt;
+                &lt;!-- Binomial Card --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-indigo-600 group-hover:text-white transition&quot;&gt;B&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Binomial Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the number of successes in $n$ independent Bernoulli trials with probability $p$. Fully active with calculations &amp; PMF charts.&lt;/p&gt;
+                    &lt;span class=&quot;text-indigo-600 text-sm font-semibold group-hover:underline&quot;&gt;Launch Module &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Poisson Card Placeholder --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-blue-600 group-hover:text-white transition&quot;&gt;P&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Poisson Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models event count occurrences within fixed intervals of time or space given rate parameter $\lambda$.&lt;/p&gt;
+                    &lt;span class=&quot;text-blue-600 text-sm font-semibold group-hover:underline&quot;&gt;Placeholder &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Geometric Card Placeholder --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-emerald-600 group-hover:text-white transition&quot;&gt;G&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Geometric Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the required number of trial attempts needed to observe the first success with success probability $p$.&lt;/p&gt;
+                    &lt;span class=&quot;text-emerald-600 text-sm font-semibold group-hover:underline&quot;&gt;Placeholder &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 2: BINOMIAL DISTRIBUTION (ACTIVE) --&gt;
+        &lt;div id=&quot;view-binomial&quot; class=&quot;hidden space-y-6&quot;&gt;
+            
+            &lt;!-- Module Title Banner --&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4&quot;&gt;
+                &lt;div&gt;
+                    &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Binomial Distribution Module&lt;/h1&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Configure $n$, $p$, and $k$ to observe real-time probability distributions, statistics, and graphs.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;bg-indigo-50 border border-indigo-100 text-indigo-800 px-4 py-2 rounded-lg text-sm font-medium&quot;&gt;
+                    Formula: $P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Validation Error Alert Banner --&gt;
+            &lt;div id=&quot;error-banner&quot; class=&quot;hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm flex items-start space-x-2&quot;&gt;
+                &lt;svg class=&quot;w-5 h-5 text-red-500 flex-shrink-0 mt-0.5&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z&quot;/&gt;&lt;/svg&gt;
+                &lt;div&gt;
+                    &lt;span class=&quot;font-bold&quot;&gt;Input Error: &lt;/span&gt;
+                    &lt;span id=&quot;error-message&quot;&gt;Please review parameter bounds.&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Parameters &amp; Input Controls --&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200&quot;&gt;
+                &lt;h2 class=&quot;text-lg font-semibold text-slate-900 border-b pb-3 mb-4&quot;&gt;Module Parameters&lt;/h2&gt;
+                &lt;div class=&quot;grid grid-cols-1 md:grid-cols-3 gap-6&quot;&gt;
+                    
+                    &lt;!-- n Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-n&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Number of Trials ($n$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-n&quot; type=&quot;number&quot; min=&quot;1&quot; max=&quot;100&quot; value=&quot;20&quot; 
+                            class=&quot;w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;validateAndUpdateAll()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Positive integer ($n \ge 1$). Default: 20.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- p Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-p&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Probability of Success ($p$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-p&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;1&quot; step=&quot;0.01&quot; value=&quot;0.35&quot; 
+                            class=&quot;w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;validateAndUpdateAll()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Probability ($0 \le p \le 1$). Default: 0.35.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- k Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-k&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Target Successes ($k$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-k&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;20&quot; value=&quot;7&quot; 
+                            class=&quot;w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;validateAndUpdateAll()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Integer ($0 \le k \le n$). Default: 7.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Statistics Cards Grid --&gt;
+            &lt;div&gt;
+                &lt;h2 class=&quot;text-sm font-semibold uppercase tracking-wider text-slate-500 mb-3&quot;&gt;Live Statistical Indicators&lt;/h2&gt;
+                &lt;div class=&quot;grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4&quot;&gt;
+                    
+                    &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Mean ($\mu$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-slate-400 block&quot;&gt;$n \cdot p$&lt;/span&gt;
+                        &lt;p id=&quot;stat-mean&quot; class=&quot;text-2xl font-bold text-indigo-900 mt-1&quot;&gt;7.00&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Variance ($\sigma^2$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-slate-400 block&quot;&gt;$n \cdot p \cdot (1-p)$&lt;/span&gt;
+                        &lt;p id=&quot;stat-variance&quot; class=&quot;text-2xl font-bold text-indigo-900 mt-1&quot;&gt;4.55&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Std Dev ($\sigma$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-slate-400 block&quot;&gt;$\sqrt{\text{Variance}}$&lt;/span&gt;
+                        &lt;p id=&quot;stat-stddev&quot; class=&quot;text-2xl font-bold text-indigo-900 mt-1&quot;&gt;2.1331&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;2nd Moment $E[X^2]$&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-slate-400 block&quot;&gt;$\text{Var} + \mu^2$&lt;/span&gt;
+                        &lt;p id=&quot;stat-moment2&quot; class=&quot;text-2xl font-bold text-indigo-900 mt-1&quot;&gt;53.5500&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;bg-white p-4 rounded-xl shadow-sm border border-slate-200 col-span-2 sm:col-span-1&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Skewness ($\gamma_1$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-slate-400 block font-mono&quot;&gt;(1-2p)/$\sigma$&lt;/span&gt;
+                        &lt;p id=&quot;stat-skewness&quot; class=&quot;text-2xl font-bold text-indigo-900 mt-1&quot;&gt;0.1406&lt;/p&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Calculators Section (PMF &amp; CDF) --&gt;
+            &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-2 gap-6&quot;&gt;
+                
+                &lt;!-- PMF Calculator --&gt;
+                &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4&quot;&gt;
+                    &lt;div&gt;
+                        &lt;div class=&quot;flex justify-between items-center mb-2&quot;&gt;
+                            &lt;h3 class=&quot;text-lg font-bold text-slate-900&quot;&gt;Probability Mass Function (PMF)&lt;/h3&gt;
+                            &lt;span class=&quot;bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded&quot;&gt;Exact Successes&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;p-3 bg-slate-50 rounded-lg border border-slate-200 font-mono text-xs text-slate-700 mb-4&quot;&gt;
+                            P(X = k) = C(n,k) &amp;middot; p&lt;sup&gt;k&lt;/sup&gt; &amp;middot; (1-p)&lt;sup&gt;n-k&lt;/sup&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;text-3xl font-extrabold text-indigo-900 mb-2&quot;&gt;
+                            P(X = &lt;span class=&quot;calc-val-k&quot;&gt;7&lt;/span&gt;) = &lt;span id=&quot;pmf-result&quot; class=&quot;text-amber-600&quot;&gt;0.1844&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;bg-amber-50 border border-amber-200 p-3.5 rounded-lg text-xs text-amber-900 leading-relaxed&quot;&gt;
+                        &lt;span class=&quot;font-bold&quot;&gt;Meaning:&lt;/span&gt; &lt;span id=&quot;pmf-explanation&quot;&gt;The probability of obtaining exactly 7 successes in 20 trials with success probability 0.35 is 0.1844 (18.44%).&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- CDF Calculator --&gt;
+                &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4&quot;&gt;
+                    &lt;div&gt;
+                        &lt;div class=&quot;flex justify-between items-center mb-2&quot;&gt;
+                            &lt;h3 class=&quot;text-lg font-bold text-slate-900&quot;&gt;Cumulative &amp; Complementary CDF&lt;/h3&gt;
+                            &lt;span class=&quot;bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded&quot;&gt;Cumulative&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;space-y-3 my-3&quot;&gt;
+                            &lt;div class=&quot;flex justify-between items-center border-b pb-2&quot;&gt;
+                                &lt;span class=&quot;text-sm font-medium text-slate-700&quot;&gt;Cumulative P(X &amp;le; &lt;span class=&quot;calc-val-k&quot;&gt;7&lt;/span&gt;):&lt;/span&gt;
+                                &lt;span id=&quot;cdf-result&quot; class=&quot;text-xl font-bold text-indigo-700&quot;&gt;0.6010&lt;/span&gt;
+                            &lt;/div&gt;
+                            &lt;div class=&quot;flex justify-between items-center border-b pb-2&quot;&gt;
+                                &lt;span class=&quot;text-sm font-medium text-slate-700&quot;&gt;Complement P(X &amp;gt; &lt;span class=&quot;calc-val-k&quot;&gt;7&lt;/span&gt;) = 1 - P(X &amp;le; k):&lt;/span&gt;
+                                &lt;span id=&quot;cdf-complement-result&quot; class=&quot;text-xl font-bold text-indigo-700&quot;&gt;0.3990&lt;/span&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;bg-indigo-50 border border-indigo-100 p-3.5 rounded-lg text-xs text-indigo-900 leading-relaxed space-y-1&quot;&gt;
+                        &lt;p&gt;&lt;span class=&quot;font-bold&quot;&gt;Explanation:&lt;/span&gt; P(X &amp;le; k) means the probability of getting k or fewer successes.&lt;/p&gt;
+                        &lt;p id=&quot;cdf-explanation-detail&quot; class=&quot;text-indigo-700&quot;&gt;In this setup, P(X &amp;le; 7) is 0.6010, while P(X &amp;gt; 7) is 0.3990.&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+            &lt;/div&gt;
+
+            &lt;!-- PMF Bar Chart Container --&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2&quot;&gt;
+                    &lt;div&gt;
+                        &lt;h3 class=&quot;text-lg font-bold text-slate-900&quot;&gt;Binomial PMF Interactive Graph&lt;/h3&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Highlighted bar shows target success $k$. Vertical dashed red line indicates mean ($\mu = np$).&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;flex items-center space-x-4 text-xs font-medium&quot;&gt;
+                        &lt;span class=&quot;flex items-center&quot;&gt;&lt;span class=&quot;w-3 h-3 bg-indigo-600 rounded-sm inline-block mr-1&quot;&gt;index&lt;/span&gt; P(X)&lt;/span&gt;
+                        &lt;span class=&quot;flex items-center&quot;&gt;&lt;span class=&quot;w-3 h-3 bg-amber-500 rounded-sm inline-block mr-1&quot;&gt;index&lt;/span&gt; k = &lt;span class=&quot;calc-val-k&quot;&gt;7&lt;/span&gt;&lt;/span&gt;
+                        &lt;span class=&quot;flex items-center&quot;&gt;&lt;span class=&quot;w-3 h-0.5 bg-red-500 border border-dashed border-red-500 inline-block mr-1&quot;&gt;&lt;/span&gt; Mean&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;relative h-80 sm:h-96 w-full&quot;&gt;
+                    &lt;canvas id=&quot;binomialChart&quot;&gt;&lt;/canvas&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 3: POISSON PLACEHOLDER --&gt;
+        &lt;div id=&quot;view-poisson&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;P&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Poisson Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;This module is currently a placeholder for future AIML lab sessions focusing on event rates ($\lambda$) and Poisson processes.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Return to Home&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 4: GEOMETRIC PLACEHOLDER --&gt;
+        &lt;div id=&quot;view-geometric&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;G&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Geometric Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;This module is currently a placeholder for upcoming laboratory exercises exploring waiting times until first success.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Return to Home&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/main&gt;
+
+    &lt;script&gt;
+        // Module State Management
+        let state = {
+            n: 20,
+            p: 0.35,
+            k: 7,
+            isValid: true,
+            errorMessage: &quot;&quot;
+        };
+
+        let chartInstance = null;
+
+        // Register Chart.js Annotation Plugin
+        if (typeof ChartAnnotation !== &#x27;undefined&#x27;) {
+            Chart.register(ChartAnnotation);
+        }
+
+        // Tab Switcher Controller
+        function switchTab(tabId) {
+            [&#x27;home&#x27;, &#x27;binomial&#x27;, &#x27;poisson&#x27;, &#x27;geometric&#x27;].forEach(id =&gt; {
+                const view = document.getElementById(`view-${id}`);
+                const nav = document.getElementById(`nav-${id}`);
+                if (id === tabId) {
+                    view.classList.remove(&#x27;hidden&#x27;);
+                    if (nav) nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;;
+                } else {
+                    view.classList.add(&#x27;hidden&#x27;);
+                    if (nav) nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;;
+                }
+            });
+            window.scrollTo({ top: 0, behavior: &#x27;smooth&#x27; });
+            if (tabId === &#x27;binomial&#x27;) {
+                if (!chartInstance) {
+                    initBinomialChart();
+                } else {
+                    validateAndUpdateAll();
+                }
+            }
+        }
+
+        // Logarithm Gamma for Combinatorics (Numerical Stability for Large n)
+        function logGamma(n) {
+            const coeff = [
+                76.18009172947146, -86.50532032941677,
+                24.01409824083091, -1.231739572450155,
+                0.1208650973866179e-2, -0.5395239384953e-5
+            ];
+            let x = n;
+            let y = n;
+            let tmp = x + 5.5;
+            tmp -= (x + 0.5) * Math.log(tmp);
+            let ser = 1.000000000190015;
+            for (let j = 0; j &lt;= 5; j++) {
+                y += 1;
+                ser += coeff[j] / y;
+            }
+            return -tmp + Math.log(2.5066282746310005 * ser / x);
+        }
+
+        function logFactorial(n) {
+            if (n &lt;= 1) return 0;
+            return logGamma(n + 1);
+        }
+
+        function logCombinations(n, k) {
+            if (k &lt; 0 || k &gt; n) return -Infinity;
+            return logFactorial(n) - (logFactorial(k) + logFactorial(n - k));
+        }
+
+        // Calculate Binomial PMF P(X = k)
+        function calculateBinomialPMF(n, p, k) {
+            if (k &lt; 0 || k &gt; n) return 0;
+            if (p === 0) return k === 0 ? 1 : 0;
+            if (p === 1) return k === n ? 1 : 0;
+            
+            const logP = logCombinations(n, k) + (k * Math.log(p)) + ((n - k) * Math.log(1 - p));
+            return Math.exp(logP);
+        }
+
+        // Validate Inputs and Update Application
+        function validateAndUpdateAll() {
+            const rawN = document.getElementById(&#x27;input-n&#x27;).value;
+            const rawP = document.getElementById(&#x27;input-p&#x27;).value;
+            const rawK = document.getElementById(&#x27;input-k&#x27;).value;
+
+            const errorBanner = document.getElementById(&#x27;error-banner&#x27;);
+            const errorMessage = document.getElementById(&#x27;error-message&#x27;);
+
+            let errors = [];
+
+            // Validate n
+            const parsedN = Number(rawN);
+            if (rawN === &quot;&quot; || isNaN(parsedN) || !Number.isInteger(parsedN) || parsedN &lt; 1) {
+                errors.push(&quot;Trials (n) must be a positive integer (n ≥ 1).&quot;);
+            } else if (parsedN &gt; 100) {
+                errors.push(&quot;Trials (n) cannot exceed 100.&quot;);
+            }
+
+            // Validate p
+            const parsedP = Number(rawP);
+            if (rawP === &quot;&quot; || isNaN(parsedP) || parsedP &lt; 0 || parsedP &gt; 1) {
+                errors.push(&quot;Probability (p) must be between 0 and 1.&quot;);
+            }
+
+            // Validate k
+            const parsedK = Number(rawK);
+            if (rawK === &quot;&quot; || isNaN(parsedK) || !Number.isInteger(parsedK) || parsedK &lt; 0) {
+                errors.push(&quot;Successes (k) must be a non-negative integer.&quot;);
+            } else if (state.isValid &amp;&amp; parsedN &amp;&amp; parsedK &gt; parsedN) {
+                errors.push(`Successes (k) cannot exceed trials n (${parsedN}).`);
+            }
+
+            if (errors.length &gt; 0) {
+                state.isValid = false;
+                errorBanner.classList.remove(&#x27;hidden&#x27;);
+                errorMessage.innerText = errors.join(&quot; &quot;);
+                return;
+            }
+
+            // Inputs Validated
+            state.isValid = true;
+            state.n = parsedN;
+            state.p = parsedP;
+            state.k = parsedK;
+            errorBanner.classList.add(&#x27;hidden&#x27;);
+
+            // Update k input max constraint dynamically
+            document.getElementById(&#x27;input-k&#x27;).max = state.n;
+
+            // Sync k labels in UI text elements
+            document.querySelectorAll(&#x27;.calc-val-k&#x27;).forEach(el =&gt; {
+                el.innerText = state.k;
+            });
+
+            // Perform statistical &amp; probabilistic updates
+            updateStatisticsAndCalculations();
+            updatePMFChart();
+        }
+
+        // Calculate Statistics, PMF, and CDF
+        function updateStatisticsAndCalculations() {
+            const n = state.n;
+            const p = state.p;
+            const k = state.k;
+
+            // 1. Core Statistics
+            const mean = n * p;
+            const variance = n * p * (1 - p);
+            const stdDev = Math.sqrt(variance);
+            const moment2 = variance + (mean * mean);
+            const skewness = stdDev === 0 ? 0 : (1 - 2 * p) / stdDev;
+
+            document.getElementById(&#x27;stat-mean&#x27;).innerText = mean.toFixed(2);
+            document.getElementById(&#x27;stat-variance&#x27;).innerText = variance.toFixed(2);
+            document.getElementById(&#x27;stat-stddev&#x27;).innerText = stdDev.toFixed(4);
+            document.getElementById(&#x27;stat-moment2&#x27;).innerText = moment2.toFixed(4);
+            document.getElementById(&#x27;stat-skewness&#x27;).innerText = skewness.toFixed(4);
+
+            // 2. PMF Calculation P(X = k)
+            const pmfVal = calculateBinomialPMF(n, p, k);
+            document.getElementById(&#x27;pmf-result&#x27;).innerText = pmfVal.toFixed(4);
+            document.getElementById(&#x27;pmf-explanation&#x27;).innerText = 
+                `The probability of obtaining exactly ${k} success${k === 1 ? &#x27;&#x27; : &#x27;es&#x27;} in ${n} trials with success probability ${p} is ${pmfVal.toFixed(4)} (${(pmfVal * 100).toFixed(2)}%).`;
+
+            // 3. CDF Calculation P(X &lt;= k) &amp; Complement P(X &gt; k)
+            let cdfVal = 0;
+            for (let i = 0; i &lt;= k; i++) {
+                cdfVal += calculateBinomialPMF(n, p, i);
+            }
+            if (cdfVal &gt; 1) cdfVal = 1; // Clamp precision floating error
+
+            const cdfComplementVal = 1 - cdfVal;
+
+            document.getElementById(&#x27;cdf-result&#x27;).innerText = cdfVal.toFixed(4);
+            document.getElementById(&#x27;cdf-complement-result&#x27;).innerText = cdfComplementVal.toFixed(4);
+            document.getElementById(&#x27;cdf-explanation-detail&#x27;).innerText = 
+                `In this setup, P(X \u2264 ${k}) is ${cdfVal.toFixed(4)} (${(cdfVal * 100).toFixed(2)}%), while P(X &gt; ${k}) is ${cdfComplementVal.toFixed(4)} (${(cdfComplementVal * 100).toFixed(2)}%).`;
+        }
+
+        // Initialize Chart.js PMF Bar Chart
+        function initBinomialChart() {
+            const ctx = document.getElementById(&#x27;binomialChart&#x27;).getContext(&#x27;2d&#x27;);
+            
+            chartInstance = new Chart(ctx, {
+                type: &#x27;bar&#x27;,
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: &#x27;P(X = value)&#x27;,
+                        data: [],
+                        backgroundColor: [],
+                        borderRadius: 4,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: (items) =&gt; `X = ${items[0].label}`,
+                                label: (item) =&gt; `P(X=${item.label}) = ${Number(item.raw).toFixed(4)}`
+                            }
+                        },
+                        annotation: {
+                            annotations: {
+                                meanLine: {
+                                    type: &#x27;line&#x27;,
+                                    scaleID: &#x27;x&#x27;,
+                                    value: 0,
+                                    borderColor: &#x27;rgba(239, 68, 68, 0.9)&#x27;,
+                                    borderWidth: 2,
+                                    borderDash: [6, 6],
+                                    label: {
+                                        display: true,
+                                        content: (ctx) =&gt; `Mean = ${(state.n * state.p).toFixed(2)}`,
+                                        position: &#x27;start&#x27;,
+                                        backgroundColor: &#x27;rgba(239, 68, 68, 0.85)&#x27;,
+                                        color: &#x27;#fff&#x27;,
+                                        font: { size: 10, weight: &#x27;bold&#x27; },
+                                        padding: 4
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            title: { display: true, text: &#x27;Number of Successes (X)&#x27;, font: { weight: &#x27;bold&#x27; } }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: &#x27;rgba(226, 232, 240, 0.8)&#x27; },
+                            title: { display: true, text: &#x27;Probability P(X)&#x27;, font: { weight: &#x27;bold&#x27; } }
+                        }
+                    }
+                }
+            });
+
+            validateAndUpdateAll();
+        }
+
+        // Update PMF Chart Data and Highlights
+        function updatePMFChart() {
+            if (!chartInstance || !state.isValid) return;
+
+            const n = state.n;
+            const p = state.p;
+            const k = state.k;
+
+            const labels = [];
+            const dataValues = [];
+            const backgroundColors = [];
+
+            for (let i = 0; i &lt;= n; i++) {
+                labels.push(i);
+                const pmf = calculateBinomialPMF(n, p, i);
+                dataValues.push(pmf);
+                
+                // Highlight bar for X = k in accent amber, default in indigo
+                if (i === k) {
+                    backgroundColors.push(&#x27;rgba(245, 158, 11, 0.9)&#x27;);
+                } else {
+                    backgroundColors.push(&#x27;rgba(79, 70, 229, 0.75)&#x27;);
+                }
+            }
+
+            chartInstance.data.labels = labels;
+            chartInstance.data.datasets[0].data = dataValues;
+            chartInstance.data.datasets[0].backgroundColor = backgroundColors;
+
+            // Update Mean Line Annotation Position
+            const meanValue = n * p;
+            if (chartInstance.options.plugins.annotation &amp;&amp; chartInstance.options.plugins.annotation.annotations.meanLine) {
+                chartInstance.options.plugins.annotation.annotations.meanLine.value = meanValue;
+            }
+
+            chartInstance.update();
+        }
+
+        // Window Load Handler
+        window.onload = function() {
+            validateAndUpdateAll();
+        };
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;" loading="lazy"></iframe>
+<iframe class="app-frame" id="frame-5" title="Version 6" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; class=&quot;h-full&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Discrete Probability Distributions - AIML Lab (Prompt 5)&lt;/title&gt;
+    &lt;!-- Tailwind CSS CDN --&gt;
+    &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+    &lt;!-- Google Fonts --&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    
+    &lt;style&gt;
+        body { font-family: &#x27;Inter&#x27;, sans-serif; }
+        /* Hide native spin buttons on number inputs */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] { -moz-appearance: textfield; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class=&quot;bg-slate-50 text-slate-800 h-full flex flex-col&quot;&gt;
+
+    &lt;!-- Navigation Header --&gt;
+    &lt;header class=&quot;bg-indigo-900 text-white shadow-lg sticky top-0 z-50&quot;&gt;
+        &lt;div class=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;&gt;
+            &lt;div class=&quot;flex justify-between h-16 items-center&quot;&gt;
+                &lt;div class=&quot;flex items-center space-x-3 cursor-pointer&quot; onclick=&quot;switchTab(&#x27;home&#x27;)&quot;&gt;
+                    &lt;div class=&quot;bg-indigo-700 p-2 rounded-lg text-indigo-200 font-bold text-lg&quot;&gt;
+                        &lt;svg class=&quot;w-6 h-6 inline&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z&quot;/&gt;&lt;/svg&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;span class=&quot;font-bold text-lg tracking-tight&quot;&gt;AIML Laboratory&lt;/span&gt;
+                        &lt;span class=&quot;block text-xs text-indigo-300&quot;&gt;Discrete Probability Distributions&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;nav class=&quot;flex space-x-1 sm:space-x-3&quot;&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;home&#x27;)&quot; id=&quot;nav-home&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Home&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; id=&quot;nav-binomial&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;&gt;Binomial&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; id=&quot;nav-poisson&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Poisson&lt;/button&gt;
+                    &lt;button onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; id=&quot;nav-geometric&quot; class=&quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;&gt;Geometric&lt;/button&gt;
+                &lt;/nav&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- Main Content Area --&gt;
+    &lt;main class=&quot;flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8&quot;&gt;
+
+        &lt;!-- VIEW 1: HOME --&gt;
+        &lt;div id=&quot;view-home&quot; class=&quot;hidden space-y-8&quot;&gt;
+            &lt;div class=&quot;bg-gradient-to-r from-indigo-900 via-indigo-800 to-blue-800 rounded-2xl p-8 text-white shadow-xl&quot;&gt;
+                &lt;h1 class=&quot;text-3xl sm:text-4xl font-extrabold tracking-tight mb-4&quot;&gt;AIML Probability &amp; Statistics Laboratory&lt;/h1&gt;
+                &lt;p class=&quot;text-indigo-100 max-w-3xl text-base sm:text-lg leading-relaxed mb-6&quot;&gt;
+                    Welcome to the undergraduate interactive lab for Discrete Probability Distributions. Select a distribution module to analyze parameters, formulas, statistical moments, PMF probabilities, and cumulative distribution functions (CDF).
+                &lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold shadow hover:bg-indigo-50 transition transform hover:-translate-y-0.5&quot;&gt;
+                    Launch Binomial Module &amp;rarr;
+                &lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;grid grid-cols-1 md:grid-cols-3 gap-6&quot;&gt;
+                &lt;!-- Binomial Card --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-indigo-600 group-hover:text-white transition&quot;&gt;B&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Binomial Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the number of successes in $n$ independent Bernoulli trials with probability $p$. Active module.&lt;/p&gt;
+                    &lt;span class=&quot;text-indigo-600 text-sm font-semibold group-hover:underline&quot;&gt;Explore Module &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Poisson Card Placeholder --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;poisson&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-blue-600 group-hover:text-white transition&quot;&gt;P&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Poisson Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models event count occurrences within fixed intervals given average rate parameter $\lambda$.&lt;/p&gt;
+                    &lt;span class=&quot;text-blue-600 text-sm font-semibold group-hover:underline&quot;&gt;Placeholder &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Geometric Card Placeholder --&gt;
+                &lt;div onclick=&quot;switchTab(&#x27;geometric&#x27;)&quot; class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition group&quot;&gt;
+                    &lt;div class=&quot;w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center font-bold mb-4 group-hover:bg-emerald-600 group-hover:text-white transition&quot;&gt;G&lt;/div&gt;
+                    &lt;h2 class=&quot;text-xl font-bold text-slate-900 mb-2&quot;&gt;Geometric Distribution&lt;/h2&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm mb-4&quot;&gt;Models the required number of trials needed to observe the first success.&lt;/p&gt;
+                    &lt;span class=&quot;text-emerald-600 text-sm font-semibold group-hover:underline&quot;&gt;Placeholder &amp;rarr;&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 2: BINOMIAL DISTRIBUTION (ACTIVE) --&gt;
+        &lt;div id=&quot;view-binomial&quot; class=&quot;space-y-6&quot;&gt;
+            
+            &lt;!-- Module Header Banner --&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4&quot;&gt;
+                &lt;div&gt;
+                    &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Binomial Distribution Module&lt;/h1&gt;
+                    &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Configure $n$, $p$, and $k$ to observe live statistics, PMF, and cumulative distribution results.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;bg-indigo-50 border border-indigo-100 text-indigo-800 px-4 py-2 rounded-lg text-sm font-medium&quot;&gt;
+                    Model: $X \sim \text{Binomial}(n, p)$
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Error Banner --&gt;
+            &lt;div id=&quot;error-banner&quot; class=&quot;hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm flex items-start space-x-2&quot;&gt;
+                &lt;svg class=&quot;w-5 h-5 text-red-500 flex-shrink-0 mt-0.5&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z&quot;/&gt;&lt;/svg&gt;
+                &lt;div&gt;
+                    &lt;span class=&quot;font-bold&quot;&gt;Validation Error: &lt;/span&gt;
+                    &lt;span id=&quot;error-message&quot;&gt;Please check input parameter limits.&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Inputs Panel --&gt;
+            &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200&quot;&gt;
+                &lt;h2 class=&quot;text-lg font-semibold text-slate-900 border-b pb-3 mb-4&quot;&gt;Module Inputs&lt;/h2&gt;
+                &lt;div class=&quot;grid grid-cols-1 sm:grid-cols-3 gap-6&quot;&gt;
+                    
+                    &lt;!-- n Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-n&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Number of Trials ($n$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-n&quot; type=&quot;number&quot; min=&quot;1&quot; step=&quot;1&quot; value=&quot;20&quot; 
+                            class=&quot;w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;updateAllCalculations()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Positive integer ($n \ge 1$). Default: 20.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- p Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-p&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Probability of Success ($p$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-p&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;1&quot; step=&quot;0.01&quot; value=&quot;0.35&quot; 
+                            class=&quot;w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;updateAllCalculations()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Probability ($0 \le p \le 1$). Default: 0.35.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- k Input --&gt;
+                    &lt;div class=&quot;space-y-2&quot;&gt;
+                        &lt;label for=&quot;input-k&quot; class=&quot;block text-sm font-medium text-slate-700&quot;&gt;
+                            Target Successes ($k$)
+                        &lt;/label&gt;
+                        &lt;input id=&quot;input-k&quot; type=&quot;number&quot; min=&quot;0&quot; step=&quot;1&quot; value=&quot;7&quot; 
+                            class=&quot;w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition&quot;
+                            oninput=&quot;updateAllCalculations()&quot;&gt;
+                        &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Integer ($0 \le k \le n$). Default: 7.&lt;/p&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Statistics Cards Grid --&gt;
+            &lt;div&gt;
+                &lt;h2 class=&quot;text-sm font-semibold uppercase tracking-wider text-slate-500 mb-3&quot;&gt;Calculated Distribution Properties&lt;/h2&gt;
+                &lt;div class=&quot;grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4&quot;&gt;
+                    
+                    &lt;!-- Mean --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Mean ($\mu$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;n &amp;middot; p&lt;/span&gt;
+                        &lt;p id=&quot;stat-mean&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;7&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Variance --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Variance ($\sigma^2$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;n &amp;middot; p &amp;middot; (1 - p)&lt;/span&gt;
+                        &lt;p id=&quot;stat-variance&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;4.55&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Standard Deviation --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Std Deviation ($\sigma$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;&amp;radic;(np(1-p))&lt;/span&gt;
+                        &lt;p id=&quot;stat-stddev&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;2.1331&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Second Moment --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;2nd Moment E[X&amp;sup2;]&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;Variance + Mean&amp;sup2;&lt;/span&gt;
+                        &lt;p id=&quot;stat-moment2&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;53.55&lt;/p&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Skewness --&gt;
+                    &lt;div class=&quot;bg-white p-5 rounded-xl shadow-sm border border-slate-200 sm:col-span-2 lg:col-span-1&quot;&gt;
+                        &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Skewness ($\gamma_1$)&lt;/span&gt;
+                        &lt;span class=&quot;text-xs text-indigo-600 font-mono block mt-0.5&quot;&gt;(1 - 2p) / &amp;sigma;&lt;/span&gt;
+                        &lt;p id=&quot;stat-skewness&quot; class=&quot;text-3xl font-bold text-indigo-950 mt-2&quot;&gt;0.1406&lt;/p&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Calculators Panel (PMF &amp; CDF side-by-side) --&gt;
+            &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-2 gap-6&quot;&gt;
+                
+                &lt;!-- PMF Calculator Box (Prompt 4) --&gt;
+                &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4&quot;&gt;
+                    &lt;div class=&quot;space-y-3&quot;&gt;
+                        &lt;div class=&quot;flex justify-between items-center border-b pb-3&quot;&gt;
+                            &lt;div&gt;
+                                &lt;h3 class=&quot;text-lg font-bold text-slate-900&quot;&gt;Binomial PMF Calculator&lt;/h3&gt;
+                                &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Evaluates $P(X = k)$&lt;/p&gt;
+                            &lt;/div&gt;
+                            &lt;span class=&quot;bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded-full&quot;&gt;PMF&lt;/span&gt;
+                        &lt;/div&gt;
+
+                        &lt;!-- Expression Box --&gt;
+                        &lt;div class=&quot;p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1&quot;&gt;
+                            &lt;span class=&quot;text-xs font-semibold text-slate-500 uppercase tracking-wider block&quot;&gt;Mathematical Expression&lt;/span&gt;
+                            &lt;div class=&quot;font-mono text-sm text-indigo-900 font-bold&quot;&gt;
+                                P(X=k) = C(n,k) p^k (1-p)^(n-k)
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+
+                        &lt;!-- Result Box --&gt;
+                        &lt;div class=&quot;p-4 bg-amber-50/70 border border-amber-200 rounded-xl&quot;&gt;
+                            &lt;span class=&quot;text-xs font-semibold text-amber-800 uppercase tracking-wider block&quot;&gt;Exact Probability&lt;/span&gt;
+                            &lt;div class=&quot;text-3xl font-extrabold text-amber-700 mt-1&quot;&gt;
+                                P(X = &lt;span class=&quot;val-k&quot;&gt;7&lt;/span&gt;) = &lt;span id=&quot;pmf-result&quot;&gt;0.1844&lt;/span&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- One-sentence explanation --&gt;
+                    &lt;div class=&quot;bg-amber-50 border border-amber-200 p-3.5 rounded-lg text-xs text-amber-900 leading-relaxed&quot;&gt;
+                        &lt;span class=&quot;font-bold&quot;&gt;Interpretation:&lt;/span&gt;
+                        &lt;span id=&quot;pmf-sentence-explanation&quot;&gt;
+                            This represents the exact probability of obtaining exactly 7 successes out of 20 independent trials.
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- CDF Calculator Box (Prompt 5) --&gt;
+                &lt;div class=&quot;bg-white rounded-xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4&quot;&gt;
+                    &lt;div class=&quot;space-y-3&quot;&gt;
+                        &lt;div class=&quot;flex justify-between items-center border-b pb-3&quot;&gt;
+                            &lt;div&gt;
+                                &lt;h3 class=&quot;text-lg font-bold text-slate-900&quot;&gt;Binomial CDF Calculator&lt;/h3&gt;
+                                &lt;p class=&quot;text-xs text-slate-500&quot;&gt;Evaluates $P(X \le k)$ and $P(X &gt; k)$&lt;/p&gt;
+                            &lt;/div&gt;
+                            &lt;span class=&quot;bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded-full&quot;&gt;CDF&lt;/span&gt;
+                        &lt;/div&gt;
+
+                        &lt;!-- Cumulative Results Display --&gt;
+                        &lt;div class=&quot;space-y-3&quot;&gt;
+                            &lt;div class=&quot;p-3.5 bg-indigo-50/70 border border-indigo-100 rounded-xl flex items-center justify-between&quot;&gt;
+                                &lt;div&gt;
+                                    &lt;span class=&quot;text-xs font-semibold text-indigo-800 uppercase tracking-wider block&quot;&gt;Cumulative Probability P(X &amp;le; k)&lt;/span&gt;
+                                    &lt;div class=&quot;text-2xl font-bold text-indigo-900 mt-0.5&quot;&gt;
+                                        P(X &amp;le; &lt;span class=&quot;val-k&quot;&gt;7&lt;/span&gt;) = &lt;span id=&quot;cdf-result&quot;&gt;0.6010&lt;/span&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;div class=&quot;p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between&quot;&gt;
+                                &lt;div&gt;
+                                    &lt;span class=&quot;text-xs font-semibold text-slate-600 uppercase tracking-wider block&quot;&gt;Complement Probability P(X &amp;gt; k) = 1 - P(X &amp;le; k)&lt;/span&gt;
+                                    &lt;div class=&quot;text-xl font-bold text-slate-800 mt-0.5&quot;&gt;
+                                        P(X &amp;gt; &lt;span class=&quot;val-k&quot;&gt;7&lt;/span&gt;) = &lt;span id=&quot;cdf-complement-result&quot;&gt;0.3990&lt;/span&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Specified Explanation --&gt;
+                    &lt;div class=&quot;bg-indigo-50 border border-indigo-100 p-3.5 rounded-lg text-xs text-indigo-900 leading-relaxed space-y-1&quot;&gt;
+                        &lt;p class=&quot;font-bold&quot;&gt;P(X &amp;le; k) means the probability of getting k or fewer successes.&lt;/p&gt;
+                        &lt;p id=&quot;cdf-detail-explanation&quot; class=&quot;text-indigo-800&quot;&gt;
+                            Here, obtaining 7 or fewer successes has a probability of 0.6010 (60.10%), while getting more than 7 successes is 0.3990 (39.90%).
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+            &lt;/div&gt;
+
+            &lt;!-- Parameter Summary Footer --&gt;
+            &lt;div class=&quot;bg-slate-100 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-center text-sm text-slate-600&quot;&gt;
+                &lt;span&gt;Selected Parameters: &lt;strong id=&quot;active-params&quot; class=&quot;text-slate-800&quot;&gt;n = 20, p = 0.35, k = 7&lt;/strong&gt;&lt;/span&gt;
+                &lt;span class=&quot;text-xs text-slate-500 mt-1 sm:mt-0&quot;&gt;Verification check: Default n=20, p=0.35 yields Mean = 7, Variance = 4.55&lt;/span&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 3: POISSON PLACEHOLDER --&gt;
+        &lt;div id=&quot;view-poisson&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;P&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Poisson Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Module placeholder for future AIML lab exercises.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Go to Binomial&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- VIEW 4: GEOMETRIC PLACEHOLDER --&gt;
+        &lt;div id=&quot;view-geometric&quot; class=&quot;hidden py-16 text-center space-y-6&quot;&gt;
+            &lt;div class=&quot;max-w-md mx-auto bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-4&quot;&gt;
+                &lt;div class=&quot;w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto&quot;&gt;G&lt;/div&gt;
+                &lt;h1 class=&quot;text-2xl font-bold text-slate-900&quot;&gt;Geometric Distribution&lt;/h1&gt;
+                &lt;p class=&quot;text-slate-600 text-sm&quot;&gt;Module placeholder for future AIML lab exercises.&lt;/p&gt;
+                &lt;button onclick=&quot;switchTab(&#x27;binomial&#x27;)&quot; class=&quot;inline-block bg-indigo-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition&quot;&gt;Go to Binomial&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/main&gt;
+
+    &lt;script&gt;
+        // Tab Navigation Controller
+        function switchTab(tabId) {
+            [&#x27;home&#x27;, &#x27;binomial&#x27;, &#x27;poisson&#x27;, &#x27;geometric&#x27;].forEach(id =&gt; {
+                const view = document.getElementById(`view-${id}`);
+                const nav = document.getElementById(`nav-${id}`);
+                if (id === tabId) {
+                    view.classList.remove(&#x27;hidden&#x27;);
+                    if (nav) nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors bg-indigo-800 text-white&quot;;
+                } else {
+                    view.classList.add(&#x27;hidden&#x27;);
+                    if (nav) nav.className = &quot;px-3 py-2 rounded-md text-sm font-medium transition-colors text-indigo-200 hover:bg-indigo-800 hover:text-white&quot;;
+                }
+            });
+            window.scrollTo({ top: 0, behavior: &#x27;smooth&#x27; });
+        }
+
+        // Numerical Stability Log-Gamma for Combinations
+        function logGamma(n) {
+            const coeff = [
+                76.18009172947146, -86.50532032941677,
+                24.01409824083091, -1.231739572450155,
+                0.1208650973866179e-2, -0.5395239384953e-5
+            ];
+            let x = n, y = n;
+            let tmp = x + 5.5;
+            tmp -= (x + 0.5) * Math.log(tmp);
+            let ser = 1.000000000190015;
+            for (let j = 0; j &lt;= 5; j++) {
+                y += 1;
+                ser += coeff[j] / y;
+            }
+            return -tmp + Math.log(2.5066282746310005 * ser / x);
+        }
+
+        function logFactorial(n) {
+            if (n &lt;= 1) return 0;
+            return logGamma(n + 1);
+        }
+
+        // PMF Calculation P(X = k)
+        function calculatePMF(n, p, k) {
+            if (k &lt; 0 || k &gt; n) return 0;
+            if (p === 0) return k === 0 ? 1 : 0;
+            if (p === 1) return k === n ? 1 : 0;
+            
+            const logComb = logFactorial(n) - (logFactorial(k) + logFactorial(n - k));
+            const logProb = logComb + (k * Math.log(p)) + ((n - k) * Math.log(1 - p));
+            return Math.exp(logProb);
+        }
+
+        // Main Calculation and UI Handler
+        function updateAllCalculations() {
+            const rawN = document.getElementById(&#x27;input-n&#x27;).value;
+            const rawP = document.getElementById(&#x27;input-p&#x27;).value;
+            const rawK = document.getElementById(&#x27;input-k&#x27;).value;
+
+            const errorBanner = document.getElementById(&#x27;error-banner&#x27;);
+            const errorMessage = document.getElementById(&#x27;error-message&#x27;);
+
+            let errors = [];
+
+            // 1. Validate n
+            const n = Number(rawN);
+            if (rawN === &quot;&quot; || isNaN(n) || !Number.isInteger(n) || n &lt; 1) {
+                errors.push(&quot;Number of trials (n) must be a positive integer (n ≥ 1).&quot;);
+            }
+
+            // 2. Validate p
+            const p = Number(rawP);
+            if (rawP === &quot;&quot; || isNaN(p) || p &lt; 0 || p &gt; 1) {
+                errors.push(&quot;Probability of success (p) must be between 0 and 1.&quot;);
+            }
+
+            // 3. Validate k
+            const k = Number(rawK);
+            if (rawK === &quot;&quot; || isNaN(k) || !Number.isInteger(k) || k &lt; 0) {
+                errors.push(&quot;Target successes (k) must be a non-negative integer.&quot;);
+            } else if (!isNaN(n) &amp;&amp; Number.isInteger(n) &amp;&amp; k &gt; n) {
+                errors.push(`Target successes (k) must be between 0 and n (${n}).`);
+            }
+
+            // Show error banner if invalid
+            if (errors.length &gt; 0) {
+                errorBanner.classList.remove(&#x27;hidden&#x27;);
+                errorMessage.innerText = errors.join(&quot; &quot;);
+                return;
+            }
+
+            // Valid Inputs
+            errorBanner.classList.add(&#x27;hidden&#x27;);
+            document.getElementById(&#x27;input-k&#x27;).max = n;
+
+            // Update UI parameter labels
+            document.getElementById(&#x27;active-params&#x27;).innerText = `n = ${n}, p = ${p}, k = ${k}`;
+            document.querySelectorAll(&#x27;.val-k&#x27;).forEach(el =&gt; el.innerText = k);
+
+            // 4. Calculate Statistics
+            const mean = n * p;
+            const variance = n * p * (1 - p);
+            const stdDev = Math.sqrt(variance);
+            const moment2 = variance + (mean * mean);
+            const skewness = stdDev === 0 ? 0 : (1 - 2 * p) / stdDev;
+
+            const formatNum = (val) =&gt; Number.isInteger(val) ? val.toString() : parseFloat(val.toFixed(4)).toString();
+
+            document.getElementById(&#x27;stat-mean&#x27;).innerText = formatNum(mean);
+            document.getElementById(&#x27;stat-variance&#x27;).innerText = formatNum(variance);
+            document.getElementById(&#x27;stat-stddev&#x27;).innerText = formatNum(stdDev);
+            document.getElementById(&#x27;stat-moment2&#x27;).innerText = formatNum(moment2);
+            document.getElementById(&#x27;stat-skewness&#x27;).innerText = formatNum(skewness);
+
+            // 5. Calculate PMF P(X = k)
+            const pmfVal = calculatePMF(n, p, k);
+            document.getElementById(&#x27;pmf-result&#x27;).innerText = pmfVal.toFixed(4);
+            document.getElementById(&#x27;pmf-sentence-explanation&#x27;).innerText = 
+                `This represents the exact probability of obtaining exactly ${k} success${k === 1 ? &#x27;&#x27; : &#x27;es&#x27;} out of ${n} independent trials.`;
+
+            // 6. Calculate CDF P(X &lt;= k) &amp; Complement P(X &gt; k)
+            let cdfVal = 0;
+            for (let i = 0; i &lt;= k; i++) {
+                cdfVal += calculatePMF(n, p, i);
+            }
+            if (cdfVal &gt; 1) cdfVal = 1; // Precision clamp
+
+            const cdfComplementVal = 1 - cdfVal;
+
+            document.getElementById(&#x27;cdf-result&#x27;).innerText = cdfVal.toFixed(4);
+            document.getElementById(&#x27;cdf-complement-result&#x27;).innerText = cdfComplementVal.toFixed(4);
+            document.getElementById(&#x27;cdf-detail-explanation&#x27;).innerText = 
+                `Here, obtaining ${k} or fewer successes has a probability of ${cdfVal.toFixed(4)} (${(cdfVal * 100).toFixed(2)}%), while getting more than ${k} successes is ${cdfComplementVal.toFixed(4)} (${(cdfComplementVal * 100).toFixed(2)}%).`;
+        }
+
+        // Initialize application on load
+        window.onload = function() {
+            updateAllCalculations();
+        };
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;" loading="lazy"></iframe>
+</main>
+<script>
+function showVersion(index) {
+  document.querySelectorAll('.app-frame').forEach((frame, i) => frame.classList.toggle('active', i === index));
+  document.querySelectorAll('.tab').forEach((tab, i) => tab.classList.toggle('active', i === index));
+}
+showVersion(0);
+</script>
+</body>
+</html>
